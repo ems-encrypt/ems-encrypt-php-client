@@ -1,0 +1,7 @@
+phpunit.xml
+composer.lock
+vendor/
+.idea
+.DS_STORE
+generate.sh
+import_openapi_file.sh

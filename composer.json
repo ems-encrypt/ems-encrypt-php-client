@@ -1,0 +1,39 @@
+{
+  "name": "ems-encrypt/ems-encrypt-php-client",
+  "description": "ems-encrypt php client",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "ems-encrypt",
+    "lets-encrypt",
+    "ssl",
+    "tls",
+    "PHP",
+    "SDK"
+  ],
+  "homepage": "https://bitbucket.org/ems-encrypt/ems-encrypt-php-client",
+  "authors": [
+    {
+      "name": "Ryan Gilles",
+      "email": "ryan@e-monsite.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Emonsite\\Api\\": "generated/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Emonsite\\Api\\Tests\\": "tests/generated/"
+    }
+  },
+  "require-dev": {
+    "rygilles/openapi-php-client-generator": "^v0.1",
+    "phpunit/phpunit": "^7.3"
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.3"
+  }
+}
