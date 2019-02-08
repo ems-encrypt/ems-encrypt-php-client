@@ -7,7 +7,7 @@ The only lib required is [Guzzle, PHP HTTP client](https://github.com/guzzle/guz
 ## Installation ##
 
 ```bash
-composer require emonsite/ems-api-php-client
+composer require ems-encrypt/ems-encrypt-php-client
 ```
 
 ## OpenAPI specification file ##
