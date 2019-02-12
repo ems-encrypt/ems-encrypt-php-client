@@ -21,12 +21,12 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "Emonsite\\Api\\": "generated/"
+      "EmsEncrypt\\Api\\": "generated/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Emonsite\\Api\\Tests\\": "tests/generated/"
+      "EmsEncrypt\\Api\\Tests\\": "tests/generated/"
     }
   },
   "require-dev": {
