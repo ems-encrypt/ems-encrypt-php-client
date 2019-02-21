@@ -87,4 +87,55 @@ class ServerHasCertificate
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
 	}
+	/**
+	 * Delete specified certificate
+	 * 
+	 * Excepted HTTP code : 204
+	 * 
+	 * @return ErrorResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function delete()
+	{
+		$routePath = '/api/serverHasCertificate/{serverId},{domain},{projectId}';
+
+		$pathReplacements = [
+			'{serverId}' => $this->server_id,
+			'{domain}' => $this->domain,
+			'{projectId}' => $this->project_id,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('delete', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 204) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ErrorResponse(
+			$this->apiClient, 
+			$requestBody['message'], 
+			(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+			(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+			(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+		);
+
+		return $response;
+	}
 }

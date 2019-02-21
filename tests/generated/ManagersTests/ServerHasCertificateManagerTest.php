@@ -18,7 +18,17 @@ class ServerHasCertificateManagerTest extends TestCase
 		// @todo
 	}
 	
+	public function createTest()
+	{
+		// @todo
+	}
+	
 	public function getTest()
+	{
+		// @todo
+	}
+	
+	public function deleteTest()
 	{
 		// @todo
 	}

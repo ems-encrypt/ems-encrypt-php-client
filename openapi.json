@@ -3691,6 +3691,68 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Manager:ServerHasCertificate"
+                ],
+                "summary": "Create and store a new server has certificate",
+                "operationId": "create",
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "required": [
+                                    "server_id",
+                                    "domain",
+                                    "project_id"
+                                ],
+                                "properties": {
+                                    "server_id": {
+                                        "type": "string"
+                                    },
+                                    "domain": {
+                                        "type": "string"
+                                    },
+                                    "project_id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                    },
+                                    "status": {
+                                        "enum": [
+                                            "NONE",
+                                            "TO_INSTALL",
+                                            "INSTALLED"
+                                        ],
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created ServerHasCertificate",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ServerHasCertificateResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "\/api\/serverHasCertificate\/{serverId},{domain},{projectId}": {
@@ -3739,6 +3801,58 @@
                                 }
                             }
                         }
+                    },
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Manager:ServerHasCertificate",
+                    "Resource:ServerHasCertificate"
+                ],
+                "summary": "Delete specified certificate",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "serverId",
+                        "in": "path",
+                        "description": "Server ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "Domain",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "Project ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Empty response"
                     },
                     "default": {
                         "description": "",
@@ -4863,6 +4977,7 @@
                     "status": {
                         "enum": [
                             "NONE",
+                            "TO_INSTALL",
                             "INSTALLED"
                         ],
                         "type": "string"
@@ -4970,8 +5085,8 @@
                         "name": "John Doe",
                         "email": "john.doe@domain.tld",
                         "preferred_language": "en",
-                        "created_at": "2019-02-05 14:11:57",
-                        "updated_at": "2019-02-05 14:11:57"
+                        "created_at": "2019-02-21 15:05:37",
+                        "updated_at": "2019-02-21 15:05:37"
                     }
                 }
             },
@@ -4979,28 +5094,7 @@
                 "value": {
                     "data": [
                         {
-                            "id": "3aa3e6df-1140-4241-936d-6a07201872f9",
-                            "type": "App\\Notifications\\UserCreatedNotification",
-                            "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "notifiable_type": "App\\Models\\User",
-                            "data": {
-                                "user_id": "605c7610-1389-11e7-93ae-92361f002671",
-                                "user": {
-                                    "name": "John Smith",
-                                    "email": "john.smith@domain.tld",
-                                    "created_at": {
-                                        "date": "2019-02-05 14:11:59.000000",
-                                        "timezone_type": 3,
-                                        "timezone": "UTC"
-                                    }
-                                }
-                            },
-                            "read_at": null,
-                            "created_at": "2019-02-05 14:11:59",
-                            "updated_at": "2019-02-05 14:11:59"
-                        },
-                        {
-                            "id": "e3047364-620a-4f6c-941f-d91bc3ec00d0",
+                            "id": "6a570a5a-2fcb-436b-b4d6-fa677a258176",
                             "type": "App\\Notifications\\UserCreatedNotification",
                             "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
                             "notifiable_type": "App\\Models\\User",
@@ -5010,18 +5104,39 @@
                                     "name": "Mickey Mouse",
                                     "email": "mickey.mouse@domain.tld",
                                     "created_at": {
-                                        "date": "2019-02-05 14:11:59.000000",
+                                        "date": "2019-02-21 15:05:39.000000",
                                         "timezone_type": 3,
                                         "timezone": "UTC"
                                     }
                                 }
                             },
                             "read_at": null,
-                            "created_at": "2019-02-05 14:11:59",
-                            "updated_at": "2019-02-05 14:11:59"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         },
                         {
-                            "id": "ef3af15f-3980-478e-82eb-3ab16785483e",
+                            "id": "ab66cbfa-e8ae-4991-9265-8f4c133f6cb0",
+                            "type": "App\\Notifications\\UserCreatedNotification",
+                            "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                            "notifiable_type": "App\\Models\\User",
+                            "data": {
+                                "user_id": "605c7610-1389-11e7-93ae-92361f002671",
+                                "user": {
+                                    "name": "John Smith",
+                                    "email": "john.smith@domain.tld",
+                                    "created_at": {
+                                        "date": "2019-02-21 15:05:38.000000",
+                                        "timezone_type": 3,
+                                        "timezone": "UTC"
+                                    }
+                                }
+                            },
+                            "read_at": null,
+                            "created_at": "2019-02-21 15:05:38",
+                            "updated_at": "2019-02-21 15:05:38"
+                        },
+                        {
+                            "id": "e0d6f81e-71ff-4ec5-b6a1-dcccc317f907",
                             "type": "App\\Notifications\\UserCreatedNotification",
                             "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
                             "notifiable_type": "App\\Models\\User",
@@ -5031,18 +5146,18 @@
                                     "name": "Alan Smithee",
                                     "email": "alan.smithee@domain.tld",
                                     "created_at": {
-                                        "date": "2019-02-05 14:11:59.000000",
+                                        "date": "2019-02-21 15:05:38.000000",
                                         "timezone_type": 3,
                                         "timezone": "UTC"
                                     }
                                 }
                             },
                             "read_at": null,
-                            "created_at": "2019-02-05 14:11:59",
-                            "updated_at": "2019-02-05 14:11:59"
+                            "created_at": "2019-02-21 15:05:38",
+                            "updated_at": "2019-02-21 15:05:38"
                         },
                         {
-                            "id": "75635c56-4728-4526-b2db-27417aef3853",
+                            "id": "de749fa6-18e3-497d-8eb7-999552b64cfb",
                             "type": "App\\Notifications\\UserCreatedNotification",
                             "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
                             "notifiable_type": "App\\Models\\User",
@@ -5052,15 +5167,15 @@
                                     "name": "John Doe",
                                     "email": "john.doe@domain.tld",
                                     "created_at": {
-                                        "date": "2019-02-05 14:11:57.000000",
+                                        "date": "2019-02-21 15:05:37.000000",
                                         "timezone_type": 3,
                                         "timezone": "UTC"
                                     }
                                 }
                             },
                             "read_at": null,
-                            "created_at": "2019-02-05 14:11:58",
-                            "updated_at": "2019-02-05 14:11:58"
+                            "created_at": "2019-02-21 15:05:37",
+                            "updated_at": "2019-02-21 15:05:37"
                         }
                     ],
                     "meta": {
@@ -5112,8 +5227,8 @@
                             "name": "John Doe",
                             "email": "john.doe@domain.tld",
                             "preferred_language": "en",
-                            "created_at": "2019-02-05 14:11:57",
-                            "updated_at": "2019-02-05 14:11:57"
+                            "created_at": "2019-02-21 15:05:37",
+                            "updated_at": "2019-02-21 15:05:37"
                         },
                         {
                             "id": "509dd5c0-1389-11e7-93ae-92361f002671",
@@ -5121,8 +5236,8 @@
                             "name": "Alan Smithee",
                             "email": "alan.smithee@domain.tld",
                             "preferred_language": "fr",
-                            "created_at": "2019-02-05 14:11:59",
-                            "updated_at": "2019-02-05 14:11:59"
+                            "created_at": "2019-02-21 15:05:38",
+                            "updated_at": "2019-02-21 15:05:38"
                         },
                         {
                             "id": "605c7610-1389-11e7-93ae-92361f002671",
@@ -5130,8 +5245,8 @@
                             "name": "John Smith",
                             "email": "john.smith@domain.tld",
                             "preferred_language": "en",
-                            "created_at": "2019-02-05 14:11:59",
-                            "updated_at": "2019-02-05 14:11:59"
+                            "created_at": "2019-02-21 15:05:38",
+                            "updated_at": "2019-02-21 15:05:38"
                         },
                         {
                             "id": "82b5da82-138c-11e7-93ae-92361f002671",
@@ -5139,8 +5254,8 @@
                             "name": "Mickey Mouse",
                             "email": "mickey.mouse@domain.tld",
                             "preferred_language": "fr",
-                            "created_at": "2019-02-05 14:11:59",
-                            "updated_at": "2019-02-05 14:11:59"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         }
                     ],
                     "meta": {
@@ -5241,12 +5356,12 @@
                         {
                             "id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
                             "name": "Sample Project",
-                            "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYYjvfrtfjnDyXIIgc9jOezXWIFm0HW5iHRLpmAmEI0qhXfXlM8ZVW\/H8qpoYTUogylYpQrszNeHvqD02\/APtrrU8n2PhdVtSHLzRLdRhIrClR8CsZszDx9Rd+95iZ1L2v4QfwB4qcHCMAqNTmgB\/dUXHkvDoHcLPO63z6vFxUL4ZxmQkqvdLGMVjNUluJwWq7+gmZvC9t578FBo711xMVP5\/r4YjycxZ5KO+geCM+wwO06Y6itFIHnejt6U8u0sknTNxk+N27b4H0d0vqdMu5HTAajuIqx5oun1V+ko+PeNc2R\/3i7G7Wwx\/zYK51QzWJsG0Ee7pXAlFH4G4Sq+tv worker@ems-encrypt\n",
-                            "authorization_webhook_url": "https:\/\/manager.e-monsite.com\/callbacks\/do\/emsencrypt",
+                            "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNX2QOWmeakVqpvErEiuQ5cTmjtJdCYOBwoajh59Od0NPh2rGz2QdW6m5dKntvqodFwKjF6M40\/YqUXewdgPhE7Tanea6NWN7uK0M832ny3u0mlwPonaQQbBynxnO7fTBCOgq0cVyowlr7UXEzhzERSrK5qZAwtQmfb7x1+93f+bUeZttysgoWu541tmyuXFb9ShBBGl2haCkCNHuZi\/JZrBClnxLSm9hI0WjJ6IoZqoEgnOqiPzJp3gPTFYJ5MEwjsVmzttRNpqi8qW4glVRXchLF\/B46lnuwOaGFe9SdFFeVHUuxfKV0Ru6mfHfntbg7Dmd\/tWn+O6csXokKw1aR worker@ems-encrypt\n",
+                            "authorization_webhook_url": null,
                             "authorization_webhook_auth_username": null,
                             "authorization_webhook_auth_password": null,
-                            "created_at": "2019-02-05 14:12:00",
-                            "updated_at": "2019-02-05 14:12:57"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:41"
                         }
                     ],
                     "meta": {
@@ -5283,8 +5398,8 @@
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
                             "user_role_id": "Owner",
-                            "created_at": "2019-02-05 14:12:00",
-                            "updated_at": "2019-02-05 14:12:00"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         }
                     ],
                     "meta": {
@@ -5313,28 +5428,14 @@
                             "login": "ems_encrypt",
                             "enabled": 1,
                             "position": 1,
-                            "created_at": "2019-02-05 14:12:00",
-                            "updated_at": "2019-02-05 14:12:00"
-                        },
-                        {
-                            "id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "server_type_id": "HAProxy",
-                            "name": "91.198.105.214",
-                            "ip": "91.198.105.214",
-                            "port": 767,
-                            "login": "ems-encrypt",
-                            "enabled": 1,
-                            "position": 2,
-                            "created_at": "2019-02-05 14:21:16",
-                            "updated_at": "2019-02-05 14:21:16"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 2,
-                            "count": 2,
+                            "total": 1,
+                            "count": 1,
                             "per_page": 20,
                             "current_page": 1,
                             "total_pages": 1,
@@ -5359,22 +5460,7 @@
                             "id": "ImportCertificates"
                         },
                         {
-                            "id": "LetsEncryptCheckOrderAuthorizations"
-                        },
-                        {
-                            "id": "LetsEncryptCreateOrder"
-                        },
-                        {
-                            "id": "LetsEncryptFetchCertificate"
-                        },
-                        {
-                            "id": "LetsEncryptFinalizeOrder"
-                        },
-                        {
                             "id": "LetsEncryptRevokeCertificate"
-                        },
-                        {
-                            "id": "PlaceHTTPChallengeAuthorization"
                         },
                         {
                             "id": "TestServerConnection"
@@ -5382,8 +5468,8 @@
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 11,
-                            "count": 11,
+                            "total": 6,
+                            "count": 6,
                             "per_page": 20,
                             "current_page": 1,
                             "total_pages": 1,
@@ -5418,60 +5504,6 @@
                 "value": {
                     "data": [
                         {
-                            "id": "161284b9-2258-468c-83d9-78c61629c829",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "task_type_id": "GenerateCertificate",
-                            "server_id": null,
-                            "domain": "www.mon-site-web.org",
-                            "order_id": {
-                                "id": "95fa4847-22d2-4bbe-a121-cd80537a980a",
-                                "domain": "www.mon-site-web.org",
-                                "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                                "key_type": "rsa",
-                                "key_size": 2048,
-                                "domains": "[\"www.mon-site-web.org\"]",
-                                "not_before": null,
-                                "not_after": null,
-                                "url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/order\/50861688\/305411758",
-                                "status": "valid",
-                                "expires": "2019-05-08 08:47:35",
-                                "identifiers": "[{\"type\": \"dns\", \"value\": \"www.mon-site-web.org\"}]",
-                                "authorization_urls": "[\"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\"]",
-                                "authorizations": "[{\"status\": \"valid\", \"expires\": \"2019-03-06T17:21:41Z\", \"challenges\": [{\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\/12240844282\", \"type\": \"tls-alpn-01\", \"token\": \"K_41ToFmK5aF2kXeLNEGMO6AGRXgt2R6Ye2Nj06-wDc\", \"status\": \"pending\"}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\/12240844283\", \"type\": \"dns-01\", \"token\": \"yXUAM538VcDds46xwaO4hBXRT9OyNWTlMM-vm4M0Gnk\", \"status\": \"pending\"}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\/12240844284\", \"type\": \"http-01\", \"token\": \"vJEGWf-0Ma92I__wvIpZp_J3sjfmkrIKhg6LH_vSUqU\", \"status\": \"valid\", \"validationRecord\": [{\"url\": \"http:\/\/www.mon-site-web.org\/.well-known\/acme-challenge\/vJEGWf-0Ma92I__wvIpZp_J3sjfmkrIKhg6LH_vSUqU\", \"port\": \"80\", \"hostname\": \"www.mon-site-web.org\", \"addressUsed\": \"91.198.105.214\", \"addressesResolved\": [\"91.198.105.214\"]}]}], \"identifier\": {\"type\": \"dns\", \"value\": \"www.mon-site-web.org\"}, \"authorization_url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\"}]",
-                                "finalize_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/finalize\/50861688\/305411758",
-                                "certificate_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/cert\/04f1dbfedb2937a6cbed5567e418fd6af6a8",
-                                "certificate_private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDTTr\/thqcXA5el\nXEXhEggREFhKGCdm2Y+Giq07D2aEq02e1PBkktvi3BZVmjWBLYpKJ9+D6l4psnkT\nZPTele8vfQMHK8Cuxjjrno+num3jAnzEqUZf2Jv51247tv1SBOryjr4G0cJtsl82\n2oynYH+JMHWxLoLwPcjG5wA+FKCUj7U+LJoyZ5LVKaqx2iesqJ015fLD0bagS3KY\ntTejWi\/byVdu7ozfBZd\/ydHpysYCxjP4TcFhrKryxvl27Yt7xfwPakz6p1W3hAoq\nw6M+fA\/HfzLL4GmzlSQKLm0c6RRZ0w1UTUAspA+Kt6yzRPHdU8+q2uVMmHITrD5M\nDhrug2fNAgMBAAECggEBAKXR5ZFbGqJXwlgUqg2uXcAuSGqUu87dKeFV0A1Jz5SK\n7VWYGrGCAaXsOmagph4iA6Sf16oocA5erN7IWdSWamWkv4yQDBvbF+3mtyrThMoh\nOJIHmF88l2IfabTYq8ACdfE0jPDDCMWWtVtRdBEhC9Q3wBPzwPMQOQ\/FVQ5il4Uc\nN\/+2AGtjmwVNmDo420Q40tNY2SCSVCRnuMM4IzzJoDPvilGytqY+5V2e6dnAMtr\/\n+RkWcJR\/xp4BmVSfhFg67Mh2Af68OfoFsck8JPh8byTL2dpiOATMYyX+jUK21agO\nRJ7vNlufMqri0yuR8RvZgr4VPtQ44VmXzzbirpCQTk0CgYEA6WKUB0t+kWnvxOpO\nNGSaMOe4UJaA7ab\/mya0FWrUr9U2dBqTYiGgCBjdIEYaW2RfJUlSONVjVpFOOSOS\nU9U4j8s+D5ykIvP2+eEemL+64\/fbSA6nrQgA\/ljN3yw0dn4ALYpDA0Z1XQJP+UHG\nvaYpONSWylOX9pBV1RKdGJ85SSMCgYEA58iC57SrdXIDQmGXnuS9dwWHojMm9WQ3\n\/VI7ZpmuvuRGArU+HDR9x16AOMG6wde3kl6GVErB\/ACLS\/CnTqYkljTv31gT8yby\ntwW0M8Cgv31LK664m6mrkp5ok8mrbk1L7KQGnhw1PyS9B25DCkn\/wLoFvV+73dNx\nhpWnjsuPMk8CgYEAjYan+ZyATjINoj3r2r2++zUpgkUiPfttOWrI\/cvg2hfTg6iy\nA2ocn4xkW7PnO9CsGfJSmABe0xoec2vsykWcnSZEpjb5GfETrggkA8EQ1jlxkkrA\nx57460Ry44js74YNGZCkfpH1jcdfM+n9WPgwOzQ\/lMYIew6f3iwBc\/LqTD0CgYA6\nwTxVyhmwot8qo5yQvcE9e5xfRII6sFX1FDRUlN6UKz+IDjOZaMD9mfn86TcTTkCN\njQKWOYElBWpKLM3shPc\/UFoCDsy31YavWHXOrKTTBcrZXugTJZaFizxNQlD\/m\/6E\nFSxMRjBFOmXkjVHXONzpGP69e5ge6iucBzG7Y+R\/xwKBgHhQ0\/zrQGXIJzxLtQ41\n4V9+zq2FQYZbsh8WtWIPrDJFecPadxnYMYga34GjAREal6\/gaKO3hzZOhOnyzjTm\nCwxdxjjK7St5QdeF1y43qSZreuwxWHGT19G4ERjlZtZwimRs34DT3+f3QqLG9vp6\nWbR6pOpwcwl7ajk87KHVSeYW\n-----END PRIVATE KEY-----\n",
-                                "certificate_public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RII\nERBYShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXv\nL30DByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/\niTB1sS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov\n28lXbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwP\nx38yy+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNn\nzQIDAQAB\n-----END PUBLIC KEY-----\n",
-                                "certificate_certificate": "-----BEGIN CERTIFICATE-----\nMIIFXzCCBEegAwIBAgISBPHb\/tspN6bL7VVn5Bj9avaoMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ3MzVaFw0x\nOTA1MDgwODQ3MzVaMB8xHTAbBgNVBAMTFHd3dy5tb24tc2l0ZS13ZWIub3JnMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RIIERBY\nShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXvL30D\nByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/iTB1\nsS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov28lX\nbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwPx38y\ny+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNnzQID\nAQABo4ICaDCCAmQwDgYDVR0PAQH\/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB\nBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQtlEPwkGQj\/XwlRqrn\n1kwbShcrezAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF\nBQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j\ncnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j\ncnlwdC5vcmcvMB8GA1UdEQQYMBaCFHd3dy5tb24tc2l0ZS13ZWIub3JnMEwGA1Ud\nIARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0\ndHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv\nAHUAdH7agzGtMxCRIZzOJU9CcMK\/\/V5CIAjGNzV55hB7zFYAAAFox1r9BQAABAMA\nRjBEAiBODaQImCYuu2CbU\/uJoqU\/g3nKE27vadRaldLxvdztyQIgQ0r3tLkacalV\nL+z1AbpvzicxjWjG9bdUHp3P6aMOTJgAdgBj8tvN6DvMLM8LcoQnV2szpI1hd4+9\ndaY4scdoVEvYjQAAAWjHWv7nAAAEAwBHMEUCIAzagHsJZvCkjYW8P+XkQsIGZJb7\np87EgXXunSVcScsxAiEAvWDWIjixzvvdgF9FFHLTE0brQHYMRR4c0FKwwASK59Ew\nDQYJKoZIhvcNAQELBQADggEBAFgN\/SY6O+n19TlAqkAmFuAQJL8lEhm0VSM83P+u\nIgmg6WwbwztzQP7anct\/dgOedMLavWggJhWjIMT+5U5PE1YbPLG75UAMketrkLA2\n\/+5dChfLs4KNzVdo8\/gsNt5IWlRhs+1yf\/kGHy0boR5AlNJ9iWl1StkYpvOr4iZw\nqWqG0dzKx5wL7Yzk1LRecKXYBHzmHme9bBBRirLmc4WHHVSU6jjkIK9s3QAVh2f+\nzOOGDnKgSvbz6HQZDlK9b1cG+bWC6LbDUo\/tCCTif2HQ+wxWbmfCu34lIiV6dWiQ\nWDEX9OHrMOPlPaoa0vOPzKDa3r6PdJiNjEQaAvbIlnEknmE=\n-----END CERTIFICATE-----",
-                                "certificate_fullchain": "-----BEGIN CERTIFICATE-----\nMIIFXzCCBEegAwIBAgISBPHb\/tspN6bL7VVn5Bj9avaoMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ3MzVaFw0x\nOTA1MDgwODQ3MzVaMB8xHTAbBgNVBAMTFHd3dy5tb24tc2l0ZS13ZWIub3JnMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RIIERBY\nShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXvL30D\nByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/iTB1\nsS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov28lX\nbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwPx38y\ny+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNnzQID\nAQABo4ICaDCCAmQwDgYDVR0PAQH\/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB\nBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQtlEPwkGQj\/XwlRqrn\n1kwbShcrezAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF\nBQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j\ncnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j\ncnlwdC5vcmcvMB8GA1UdEQQYMBaCFHd3dy5tb24tc2l0ZS13ZWIub3JnMEwGA1Ud\nIARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0\ndHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv\nAHUAdH7agzGtMxCRIZzOJU9CcMK\/\/V5CIAjGNzV55hB7zFYAAAFox1r9BQAABAMA\nRjBEAiBODaQImCYuu2CbU\/uJoqU\/g3nKE27vadRaldLxvdztyQIgQ0r3tLkacalV\nL+z1AbpvzicxjWjG9bdUHp3P6aMOTJgAdgBj8tvN6DvMLM8LcoQnV2szpI1hd4+9\ndaY4scdoVEvYjQAAAWjHWv7nAAAEAwBHMEUCIAzagHsJZvCkjYW8P+XkQsIGZJb7\np87EgXXunSVcScsxAiEAvWDWIjixzvvdgF9FFHLTE0brQHYMRR4c0FKwwASK59Ew\nDQYJKoZIhvcNAQELBQADggEBAFgN\/SY6O+n19TlAqkAmFuAQJL8lEhm0VSM83P+u\nIgmg6WwbwztzQP7anct\/dgOedMLavWggJhWjIMT+5U5PE1YbPLG75UAMketrkLA2\n\/+5dChfLs4KNzVdo8\/gsNt5IWlRhs+1yf\/kGHy0boR5AlNJ9iWl1StkYpvOr4iZw\nqWqG0dzKx5wL7Yzk1LRecKXYBHzmHme9bBBRirLmc4WHHVSU6jjkIK9s3QAVh2f+\nzOOGDnKgSvbz6HQZDlK9b1cG+bWC6LbDUo\/tCCTif2HQ+wxWbmfCu34lIiV6dWiQ\nWDEX9OHrMOPlPaoa0vOPzKDa3r6PdJiNjEQaAvbIlnEknmE=\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n",
-                                "fetched_at": "2019-02-07 09:47:42",
-                                "created_at": "2019-02-07 09:47:37",
-                                "updated_at": "2019-02-07 09:47:42"
-                            },
-                            "status": "COMPLETED",
-                            "output": null,
-                            "started_at": "2019-02-07 09:47:32",
-                            "finished_at": "2019-02-07 09:47:42",
-                            "created_at": "2019-02-07 09:47:29",
-                            "updated_at": "2019-02-07 09:47:42"
-                        },
-                        {
-                            "id": "4b14536a-3c18-4bda-9902-e7428263d1dd",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": null,
-                            "task_type_id": "DeployCertificates",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "domain": null,
-                            "order_id": null,
-                            "status": "PENDING",
-                            "output": null,
-                            "started_at": null,
-                            "finished_at": null,
-                            "created_at": "2019-02-05 14:27:20",
-                            "updated_at": "2019-02-05 14:27:20"
-                        },
-                        {
                             "id": "b7b39852-6334-11e8-adc0-fa7ae01bbebc",
                             "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
                             "user_id": null,
@@ -5483,98 +5515,14 @@
                             "output": "Sample server deploy task sample...",
                             "started_at": "2018-11-25 10:45:35",
                             "finished_at": "2018-11-26 14:01:32",
-                            "created_at": "2019-02-05 14:12:00",
-                            "updated_at": "2019-02-05 14:12:00"
-                        },
-                        {
-                            "id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": null,
-                            "task_type_id": "DeployCertificates",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "domain": null,
-                            "order_id": null,
-                            "status": "COMPLETED",
-                            "output": null,
-                            "started_at": "2019-02-05 14:27:48",
-                            "finished_at": "2019-02-05 14:27:51",
-                            "created_at": "2019-02-05 14:27:39",
-                            "updated_at": "2019-02-05 14:27:51"
-                        },
-                        {
-                            "id": "dbc4a6af-aee0-4410-9ace-c5e2a24b2018",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "task_type_id": "GenerateCertificate",
-                            "server_id": null,
-                            "domain": "www.test-thomas.xyz",
-                            "order_id": {
-                                "id": "de4fe8e0-82d6-47ee-be73-743ec28715c3",
-                                "domain": "www.test-thomas.xyz",
-                                "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                                "key_type": "rsa",
-                                "key_size": 2048,
-                                "domains": "[\"www.test-thomas.xyz\"]",
-                                "not_before": null,
-                                "not_after": null,
-                                "url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/order\/50861688\/305412271",
-                                "status": "valid",
-                                "expires": "2019-05-08 08:48:15",
-                                "identifiers": "[{\"type\": \"dns\", \"value\": \"www.test-thomas.xyz\"}]",
-                                "authorization_urls": "[\"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\"]",
-                                "authorizations": "[{\"status\": \"valid\", \"expires\": \"2019-03-07T14:18:37Z\", \"challenges\": [{\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\/12271287988\", \"type\": \"dns-01\", \"token\": \"0XUMXiFmU7VC55nIM-06wCjZ4xNxJbo5S6aZ6V7Fwkc\", \"status\": \"pending\"}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\/12271287989\", \"type\": \"http-01\", \"token\": \"227jejLAY988Bc725geKjWj6Ug8hfib83k5B1XO7mkQ\", \"status\": \"valid\", \"validationRecord\": [{\"url\": \"http:\/\/www.test-thomas.xyz\/.well-known\/acme-challenge\/227jejLAY988Bc725geKjWj6Ug8hfib83k5B1XO7mkQ\", \"port\": \"80\", \"hostname\": \"www.test-thomas.xyz\", \"addressUsed\": \"91.198.105.214\", \"addressesResolved\": [\"91.198.105.214\"]}]}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\/12271287990\", \"type\": \"tls-alpn-01\", \"token\": \"vibyAaRgjsGJoOq2B9tVbfABOQ_7P4ERkfzIL9R4v5g\", \"status\": \"pending\"}], \"identifier\": {\"type\": \"dns\", \"value\": \"www.test-thomas.xyz\"}, \"authorization_url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\"}]",
-                                "finalize_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/finalize\/50861688\/305412271",
-                                "certificate_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/cert\/04d65dfce796a66137b30b138cdaa4e4fede",
-                                "certificate_private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDck0jSp0n9jDPH\nBNPmd8owbIUP9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/\nEWDFW0iOngAEPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUE\nUyJG8QaMbn2pbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QY\nT2I8pZ5xbWHGgaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tag\nPcCzvYSDxfVDyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8\nGCWtYjkRAgMBAAECggEADaQaK9TmsYR7K0K0LBuaaHY9oGgNRyzj2\/GYcSi\/rR+u\nZylRo9BaZXsveN5cI5kgVBQMGlxlZUrL00\/q0Sm9CfzheWHD8dPIIBFr1GbYtVV6\nUrml2f1SNP6U8zUhb6wRVE7rG0Vyrl\/GSkct5n8\/bW3j3Zd1sqoFAWZKWP0Q7Vga\nWnN9PNXOR\/a\/dn6TlBMtYdfI7z7SwzEJlOl2bgH4hkaK6kmbZY7IhUwUOES4TqXE\nb6Cw\/JpTDD5Xid\/z93zRAN9Wym9sftMvHQ3vM7qMDqJW6bvlnw85NLOmzTxmUUkK\n49JydWRmKPXEDsqomg1mzaQ5w0YtcEqrE1efmDuiQQKBgQD4gDBKnRZfqpQ9QTCL\nSmWWDnQEd6lLjBNQmKhgAK\/QiBKszafr9K8RFWNMQ4sL2PcBnUKW3xqdT9z03PfO\nAm+oZITrL3AYx+JKQ3WlSAu19TADgwufyTDM1ybreTKOudfoBCz6DEBCfukpRUCo\nelUb5xszDtOiMOnAA1UIcS3sGQKBgQDjO1sgwUXKXaLE+D7j54lnh1iSxuS\/mPe4\nwZeDHtESrjq7\/nBeIuNAWoHwO1Ek1LhM2BqPYiqFksx+xbHKgPVOXItU7tX9EACH\njAZOek0TRFgSuCl5rffcOEIos3CrtsCuN5dsR\/SRTF\/Lvb2OPVpiW8KvdPurtO3N\n1gqeaarTuQKBgC96\/r8i6KV6yDwz+nyCyIo1VMGNw5ElwIMDyBgfyXgEp9zQpqcU\n52ZSOdjWhvjKideLHrAJDOLF4af\/mHGKUZ9RJXxyYe66MmiSHyZnb6VipbvmDBCJ\ntoNNEKipTZmrtK8mLRnRwW1zJkW2b7ZBOYXNUIse6BzzT5ZajKLCTU3xAoGAAQiC\nD5IRaSwn01F1p7+jxk69Pl2dKKnfZn2q3LPFK5qTNcugYy0xb1d6A8ehRNOayu6o\noEJIAzd5qpHnjw4rD2IoWAiF\/JKYDgW6+ZxgwVesNtmThrQdzmiLFHhMaNt54NDr\n5Vgmaoq4XMrOE9l\/kbbtGbMkedFmy2rPvYypdDECgYEAmK2DPfL613Mp6e0j5+qo\n2iCzz1SMm2QKSOAW+\/dbuE+BIxcT295vq\/u4+lcaTBXUeG6aEdkdbpZe4+hJyteF\nEE8NdMCFHsV0QBW\/pN5szkou7967lbb\/4u423r4WdZDUkCTCVNIKG0975\/cyVCEC\nJCwiB5cREBk64d4mas5XfsA=\n-----END PRIVATE KEY-----\n",
-                                "certificate_public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3JNI0qdJ\/YwzxwTT5nfK\nMGyFD\/W\/ZgTdoPfgVvzU2f+XVC3H2z0XjKNGDSCXtxA6cFPkXD\/n2h1AfxFgxVtI\njp4ABD8\/M1WVPrE6qtXwudZqwilYV548Z2J3vnEaQ21FsVB++EQWOOAlBFMiRvEG\njG59qWyIUFNauooO\/L3c6EKEqmre6hRa5+CQvE\/LU\/aJLUZa7O7PVId0GE9iPKWe\ncW1hxoGgIW+1rpdTYe14VB\/OItFYXKOrWoHFgiofZO+jS8qPb9S0BPbWoD3As72E\ng8X1Q8kc78pf6aFDOUhvSZWAv9zMY+zLCX72b73wRb1RGjEIcb3KO392\/BglrWI5\nEQIDAQAB\n-----END PUBLIC KEY-----\n",
-                                "certificate_certificate": "-----BEGIN CERTIFICATE-----\nMIIFXjCCBEagAwIBAgISBNZd\/OeWpmE3swsTjNqk5P7eMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ4MTVaFw0x\nOTA1MDgwODQ4MTVaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDck0jSp0n9jDPHBNPmd8owbIUP\n9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/EWDFW0iOngAE\nPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUEUyJG8QaMbn2p\nbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QYT2I8pZ5xbWHG\ngaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tagPcCzvYSDxfVD\nyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8GCWtYjkRAgMB\nAAGjggJoMIICZDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFPSpWw\/laMs\/uCpYvXFV\nk3VNgr2EMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejBMBgNVHSAE\nRTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRw\nOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB2\nAHR+2oMxrTMQkSGcziVPQnDCv\/1eQiAIxjc1eeYQe8xWAAABaMdbmaEAAAQDAEcw\nRQIgMEIz18ayGC3RZJG1O339GEQM+iW\/9P6HyADnk63weoUCIQDIfRHinm5ueCpf\npDVetRR685\/KOaSSDRt+9qx\/to68ugB2ACk8UZZUyDlluqpQ\/FgH1Ldvv1h6KXLc\npMMM9OVFR\/R4AAABaMdbmYkAAAQDAEcwRQIhAIgTE72ukSeakq6QBno1HIVaSWTn\nPNIWOsmmaSZb9I8IAiBLP33MDb8oDqYdI3Z6CutWn977QNg3UJGGH4MwbOlUfjAN\nBgkqhkiG9w0BAQsFAAOCAQEAZeOw7A4QSaQoE2LpJNSc70forYAO8Y9s4HRAQ48X\nkkdYP0XscCyIm4oODV3Uf90VugZa8n2llMskP93743Bgm3tlLgIfVkcaVJcYwmYv\ntFGzq9RzxAYsnMiD5tqqCj5hww+zs7MBFvaMFZ88DzECHAyT26SR0o624j0GMzQU\ndfVxp0gnlc9ogsHYz3haaSxljHH9m7jcfhs3NM5nc0Q0UQcz5\/rfKzMmdn73mc\/u\n8tI38SfM9gy9yFvTDhZZAcFPYOGm66awxpC+A953dfF4fjcP0HbvbIV5vM9uSJ7B\nfZ7DYwc8sOWA+DHhWEI1vQYPAEYuNBhHO2gRBdSOzOww5Q==\n-----END CERTIFICATE-----",
-                                "certificate_fullchain": "-----BEGIN CERTIFICATE-----\nMIIFXjCCBEagAwIBAgISBNZd\/OeWpmE3swsTjNqk5P7eMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ4MTVaFw0x\nOTA1MDgwODQ4MTVaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDck0jSp0n9jDPHBNPmd8owbIUP\n9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/EWDFW0iOngAE\nPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUEUyJG8QaMbn2p\nbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QYT2I8pZ5xbWHG\ngaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tagPcCzvYSDxfVD\nyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8GCWtYjkRAgMB\nAAGjggJoMIICZDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFPSpWw\/laMs\/uCpYvXFV\nk3VNgr2EMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejBMBgNVHSAE\nRTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRw\nOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB2\nAHR+2oMxrTMQkSGcziVPQnDCv\/1eQiAIxjc1eeYQe8xWAAABaMdbmaEAAAQDAEcw\nRQIgMEIz18ayGC3RZJG1O339GEQM+iW\/9P6HyADnk63weoUCIQDIfRHinm5ueCpf\npDVetRR685\/KOaSSDRt+9qx\/to68ugB2ACk8UZZUyDlluqpQ\/FgH1Ldvv1h6KXLc\npMMM9OVFR\/R4AAABaMdbmYkAAAQDAEcwRQIhAIgTE72ukSeakq6QBno1HIVaSWTn\nPNIWOsmmaSZb9I8IAiBLP33MDb8oDqYdI3Z6CutWn977QNg3UJGGH4MwbOlUfjAN\nBgkqhkiG9w0BAQsFAAOCAQEAZeOw7A4QSaQoE2LpJNSc70forYAO8Y9s4HRAQ48X\nkkdYP0XscCyIm4oODV3Uf90VugZa8n2llMskP93743Bgm3tlLgIfVkcaVJcYwmYv\ntFGzq9RzxAYsnMiD5tqqCj5hww+zs7MBFvaMFZ88DzECHAyT26SR0o624j0GMzQU\ndfVxp0gnlc9ogsHYz3haaSxljHH9m7jcfhs3NM5nc0Q0UQcz5\/rfKzMmdn73mc\/u\n8tI38SfM9gy9yFvTDhZZAcFPYOGm66awxpC+A953dfF4fjcP0HbvbIV5vM9uSJ7B\nfZ7DYwc8sOWA+DHhWEI1vQYPAEYuNBhHO2gRBdSOzOww5Q==\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n",
-                                "fetched_at": "2019-02-07 09:48:22",
-                                "created_at": "2019-02-07 09:48:17",
-                                "updated_at": "2019-02-07 09:48:22"
-                            },
-                            "status": "COMPLETED",
-                            "output": null,
-                            "started_at": "2019-02-07 09:48:09",
-                            "finished_at": "2019-02-07 09:48:22",
-                            "created_at": "2019-02-07 09:48:08",
-                            "updated_at": "2019-02-07 09:48:22"
-                        },
-                        {
-                            "id": "e0ef74d9-93ae-4d04-b7b4-898bb053818d",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": null,
-                            "task_type_id": "TestServerConnection",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "domain": null,
-                            "order_id": null,
-                            "status": "COMPLETED",
-                            "output": null,
-                            "started_at": "2019-02-05 14:21:52",
-                            "finished_at": "2019-02-05 14:21:53",
-                            "created_at": "2019-02-05 14:21:50",
-                            "updated_at": "2019-02-05 14:21:53"
-                        },
-                        {
-                            "id": "f7053e1b-e25d-423a-8530-d62714f845b0",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "user_id": null,
-                            "task_type_id": "DeployCertificates",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "domain": null,
-                            "order_id": null,
-                            "status": "COMPLETED",
-                            "output": null,
-                            "started_at": "2019-02-05 14:22:07",
-                            "finished_at": "2019-02-05 14:22:08",
-                            "created_at": "2019-02-05 14:22:05",
-                            "updated_at": "2019-02-05 14:22:08"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 7,
-                            "count": 7,
+                            "total": 1,
+                            "count": 1,
                             "per_page": 20,
                             "current_page": 1,
                             "total_pages": 1,
@@ -5587,174 +5535,6 @@
                 "value": {
                     "data": [
                         {
-                            "id": "020222d3-ebd3-484b-b84b-3baf15b180da",
-                            "server_id": null,
-                            "task_id": "dbc4a6af-aee0-4410-9ace-c5e2a24b2018",
-                            "status": "RUNNING",
-                            "output": "Contacting Let's Encrypt to fetch order...\n[info] Let's Encrypt : GET https:\/\/acme-v02.api.letsencrypt.org\/directory\n[info] Let's Encrypt : HEAD https:\/\/acme-v02.api.letsencrypt.org\/acme\/new-nonce\n[info] Let's Encrypt : POST https:\/\/acme-v02.api.letsencrypt.org\/acme\/new-acct\n[info] Let's Encrypt : POST https:\/\/acme-v02.api.letsencrypt.org\/acme\/acct\/50861688\nLet's Encrypt order url to fetch : https:\/\/acme-v02.api.letsencrypt.org\/acme\/order\/50861688\/305412271\n[info] Let's Encrypt : GET https:\/\/acme-v02.api.letsencrypt.org\/acme\/order\/50861688\/305412271\n[info] Let's Encrypt : GET https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\nDone.",
-                            "position": 9,
-                            "started_at": "2019-02-07 09:48:20",
-                            "finished_at": "2019-02-07 09:48:22",
-                            "created_at": "2019-02-07 09:48:20",
-                            "updated_at": "2019-02-07 09:48:22"
-                        },
-                        {
-                            "id": "0a1bb7b3-39d6-4549-adda-096c3c87c333",
-                            "server_id": null,
-                            "task_id": "dbc4a6af-aee0-4410-9ace-c5e2a24b2018",
-                            "status": "COMPLETED",
-                            "output": "Task finished\n",
-                            "position": 11,
-                            "started_at": "2019-02-07 09:48:22",
-                            "finished_at": "2019-02-07 09:48:22",
-                            "created_at": "2019-02-07 09:48:22",
-                            "updated_at": "2019-02-07 09:48:22"
-                        },
-                        {
-                            "id": "12711a4b-44ed-4dac-945e-67129f16fbad",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "f7053e1b-e25d-423a-8530-d62714f845b0",
-                            "status": "RUNNING",
-                            "output": "Filtering and updating server has certificate relationships...\n1 unknown domains found :\nwww.mon-site-web.org\n0 domains left to install found\nDone.",
-                            "position": 7,
-                            "started_at": "2019-02-05 14:22:08",
-                            "finished_at": "2019-02-05 14:22:08",
-                            "created_at": "2019-02-05 14:22:08",
-                            "updated_at": "2019-02-05 14:22:08"
-                        },
-                        {
-                            "id": "145edb16-dea8-4cc3-a1e2-35df11b91d62",
-                            "server_id": null,
-                            "task_id": "161284b9-2258-468c-83d9-78c61629c829",
-                            "status": "RUNNING",
-                            "output": "Setting Let's Encrypt order parameters...\nUse \"https:\/\/acme-v02.api.letsencrypt.org\" Let's Encrypt service end-point.\n",
-                            "position": 8,
-                            "started_at": "2019-02-07 09:47:40",
-                            "finished_at": null,
-                            "created_at": "2019-02-07 09:47:40",
-                            "updated_at": "2019-02-07 09:47:40"
-                        },
-                        {
-                            "id": "19aee516-5f04-4588-a2e2-0447b3b28296",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "status": "RUNNING",
-                            "output": "Checking task data...\nDone.",
-                            "position": 2,
-                            "started_at": "2019-02-05 14:27:48",
-                            "finished_at": "2019-02-05 14:27:48",
-                            "created_at": "2019-02-05 14:27:48",
-                            "updated_at": "2019-02-05 14:27:48"
-                        },
-                        {
-                            "id": "1f6cab45-02e6-4e28-804f-922758d302cb",
-                            "server_id": null,
-                            "task_id": "dbc4a6af-aee0-4410-9ace-c5e2a24b2018",
-                            "status": "RUNNING",
-                            "output": "Step 4 \/ 5 : Finalize Order\n\nOrder \"de4fe8e0-82d6-47ee-be73-743ec28715c3\" finalized.\nDone.",
-                            "position": 5,
-                            "started_at": "2019-02-07 09:48:17",
-                            "finished_at": "2019-02-07 09:48:20",
-                            "created_at": "2019-02-07 09:48:17",
-                            "updated_at": "2019-02-07 09:48:20"
-                        },
-                        {
-                            "id": "22589432-e8da-4573-abfc-67969d78e8ac",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "status": "RUNNING",
-                            "output": "Retrieving domains in result output...\n1 domains found\nDone.",
-                            "position": 6,
-                            "started_at": "2019-02-05 14:27:49",
-                            "finished_at": "2019-02-05 14:27:49",
-                            "created_at": "2019-02-05 14:27:49",
-                            "updated_at": "2019-02-05 14:27:49"
-                        },
-                        {
-                            "id": "28d3469c-4748-4628-90f6-9e9759d9b578",
-                            "server_id": null,
-                            "task_id": "161284b9-2258-468c-83d9-78c61629c829",
-                            "status": "RUNNING",
-                            "output": "Starting task\n",
-                            "position": 1,
-                            "started_at": "2019-02-07 09:47:33",
-                            "finished_at": "2019-02-07 09:47:33",
-                            "created_at": "2019-02-07 09:47:33",
-                            "updated_at": "2019-02-07 09:47:33"
-                        },
-                        {
-                            "id": "2cc37b1e-2146-4ffb-9cd3-42338d2db610",
-                            "server_id": null,
-                            "task_id": "161284b9-2258-468c-83d9-78c61629c829",
-                            "status": "COMPLETED",
-                            "output": "Task finished\n",
-                            "position": 11,
-                            "started_at": "2019-02-07 09:47:42",
-                            "finished_at": "2019-02-07 09:47:42",
-                            "created_at": "2019-02-07 09:47:42",
-                            "updated_at": "2019-02-07 09:47:42"
-                        },
-                        {
-                            "id": "33ab32ec-b5ee-47d8-91da-a70a88d23574",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "status": "RUNNING",
-                            "output": "Filtering and updating server has certificate relationships...\n0 unknown domains found :\n1 domains left to install found\nDone.",
-                            "position": 7,
-                            "started_at": "2019-02-05 14:27:49",
-                            "finished_at": "2019-02-05 14:27:49",
-                            "created_at": "2019-02-05 14:27:49",
-                            "updated_at": "2019-02-05 14:27:49"
-                        },
-                        {
-                            "id": "36f05f2d-9ef5-4a00-97be-5f8c684a14c8",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "status": "RUNNING",
-                            "output": "Installing remaining server has certificate relationships certificates pem files...\nSending www.test-thomas.xyz.pem file...\n\nDone.",
-                            "position": 8,
-                            "started_at": "2019-02-05 14:27:49",
-                            "finished_at": "2019-02-05 14:27:49",
-                            "created_at": "2019-02-05 14:27:49",
-                            "updated_at": "2019-02-05 14:27:49"
-                        },
-                        {
-                            "id": "38cd094b-92fd-4a38-bc10-f36cf1edc58a",
-                            "server_id": null,
-                            "task_id": "dbc4a6af-aee0-4410-9ace-c5e2a24b2018",
-                            "status": "RUNNING",
-                            "output": "Checking Let's Encrypt account email...\nDone.",
-                            "position": 7,
-                            "started_at": "2019-02-07 09:48:20",
-                            "finished_at": "2019-02-07 09:48:20",
-                            "created_at": "2019-02-07 09:48:20",
-                            "updated_at": "2019-02-07 09:48:20"
-                        },
-                        {
-                            "id": "3d73d86c-67cc-4c58-99b4-4a6f5509a8b2",
-                            "server_id": null,
-                            "task_id": "dbc4a6af-aee0-4410-9ace-c5e2a24b2018",
-                            "status": "RUNNING",
-                            "output": "Step 3 \/ 5 : Check Project Authorization With Webhook Url\n\nAll authorizations are valid !\nDone.",
-                            "position": 4,
-                            "started_at": "2019-02-07 09:48:17",
-                            "finished_at": "2019-02-07 09:48:17",
-                            "created_at": "2019-02-07 09:48:17",
-                            "updated_at": "2019-02-07 09:48:17"
-                        },
-                        {
-                            "id": "401f0fb4-fc2e-44b2-ab51-a83928eaea70",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "status": "RUNNING",
-                            "output": "Getting the server certificates relationships...\n2 found\nDone.",
-                            "position": 3,
-                            "started_at": "2019-02-05 14:27:48",
-                            "finished_at": "2019-02-05 14:27:48",
-                            "created_at": "2019-02-05 14:27:48",
-                            "updated_at": "2019-02-05 14:27:48"
-                        },
-                        {
                             "id": "412971e2-6321-11e8-adc0-fa7ae01bbebc",
                             "server_id": "1a1083f0-628d-11e8-adc0-fa7ae01bbebc",
                             "task_id": "b7b39852-6334-11e8-adc0-fa7ae01bbebc",
@@ -5763,80 +5543,42 @@
                             "position": 1,
                             "started_at": "2020-01-27 10:45:35",
                             "finished_at": "2020-01-27 10:46:10",
-                            "created_at": "2019-02-05 14:12:00",
-                            "updated_at": "2019-02-05 14:12:00"
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         },
                         {
-                            "id": "43d89614-36ea-4358-8140-b4eac7ab64ec",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
+                            "id": "505496f6-6321-11e8-adc0-fa7ae01bbebc",
+                            "server_id": "1a1083f0-628d-11e8-adc0-fa7ae01bbebc",
+                            "task_id": "b7b39852-6334-11e8-adc0-fa7ae01bbebc",
                             "status": "COMPLETED",
-                            "output": "Task finished\n",
-                            "position": 12,
-                            "started_at": "2019-02-05 14:27:51",
-                            "finished_at": "2019-02-05 14:27:51",
-                            "created_at": "2019-02-05 14:27:51",
-                            "updated_at": "2019-02-05 14:27:51"
+                            "output": "server log test 3...",
+                            "position": 3,
+                            "started_at": "2020-02-28 14:01:27",
+                            "finished_at": "2020-02-28 14:01:32",
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         },
                         {
-                            "id": "45174858-a72a-4c5e-9418-60b8d12c0dcb",
-                            "server_id": null,
-                            "task_id": "161284b9-2258-468c-83d9-78c61629c829",
-                            "status": "RUNNING",
-                            "output": "Step 5 \/ 5 : Fetch Certificate\n\nSaving order certificate data...\nOrder \"95fa4847-22d2-4bbe-a121-cd80537a980a\" certificate data saved.\nChanging certificate status to \"GENERATED\"...\nDone.",
-                            "position": 6,
-                            "started_at": "2019-02-07 09:47:40",
-                            "finished_at": "2019-02-07 09:47:42",
-                            "created_at": "2019-02-07 09:47:40",
-                            "updated_at": "2019-02-07 09:47:42"
-                        },
-                        {
-                            "id": "47e3683f-5827-4081-ad97-281b5f46f806",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "d1e24e9c-c68a-4a7f-93bf-6200f29fd24e",
-                            "status": "RUNNING",
-                            "output": "Preparing server \"91.198.105.214\" (ems-encrypt@91.198.105.214:767) ...\n# Run script over SSH\n\nsudo ssh -o CheckHostIP=no \\\n    -o IdentitiesOnly=yes \\\n    -o StrictHostKeyChecking=no \\\n    -o PasswordAuthentication=no \\\n    -o IdentityFile=\/home\/vagrant\/ems-encrypt-tmp-keys\/sshkeydTUwRr \\\n    -p 767 ems-encrypt@91.198.105.214 'bash -s' << 'EOF'\n        # Turn on quit on non-zero exit\n        set -e\n        # Prepare HAProxy server\n\n# Ensure the certificates directory exists\nmkdir -p ~\/certificates\nchmod 744 ~\/certificates\n\n# Ensure the certificates-list file exists\ntouch certificates-list\nchmod 744 ~\/certificates-list\nEOF\n\nDone.",
-                            "position": 4,
-                            "started_at": "2019-02-05 14:27:48",
-                            "finished_at": "2019-02-05 14:27:48",
-                            "created_at": "2019-02-05 14:27:48",
-                            "updated_at": "2019-02-05 14:27:48"
-                        },
-                        {
-                            "id": "4c822f54-ca78-4dab-ad1e-9a74bbafb157",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "f7053e1b-e25d-423a-8530-d62714f845b0",
-                            "status": "RUNNING",
-                            "output": "Starting task\n",
-                            "position": 1,
-                            "started_at": "2019-02-05 14:22:07",
-                            "finished_at": "2019-02-05 14:22:07",
-                            "created_at": "2019-02-05 14:22:07",
-                            "updated_at": "2019-02-05 14:22:07"
-                        },
-                        {
-                            "id": "4f3b8a7a-44de-467f-be44-d1ee78b79b18",
-                            "server_id": "d0412712-1d7c-4c28-b6b0-a84b1c88d2f4",
-                            "task_id": "f7053e1b-e25d-423a-8530-d62714f845b0",
-                            "status": "RUNNING",
-                            "output": "Checking task data...\nDone.",
+                            "id": "8965d40a-631c-11e8-adc0-fa7ae01bbebc",
+                            "server_id": "1a1083f0-628d-11e8-adc0-fa7ae01bbebc",
+                            "task_id": "b7b39852-6334-11e8-adc0-fa7ae01bbebc",
+                            "status": "COMPLETED",
+                            "output": "server log test 2...",
                             "position": 2,
-                            "started_at": "2019-02-05 14:22:07",
-                            "finished_at": "2019-02-05 14:22:07",
-                            "created_at": "2019-02-05 14:22:07",
-                            "updated_at": "2019-02-05 14:22:07"
+                            "started_at": "2020-02-28 09:20:12",
+                            "finished_at": "2020-02-28 09:20:42",
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 50,
-                            "count": 20,
+                            "total": 3,
+                            "count": 3,
                             "per_page": 20,
                             "current_page": 1,
-                            "total_pages": 3,
-                            "links": {
-                                "next": "http:\/\/ems-encrypt.local\/api\/taskLog?page=2"
-                            }
+                            "total_pages": 1,
+                            "links": []
                         }
                     }
                 }
@@ -5845,36 +5587,23 @@
                 "value": {
                     "data": [
                         {
-                            "domain": "www.mon-site-web.org",
+                            "domain": "www.test.com",
                             "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "status": "GENERATED",
-                            "cert_pem": "-----BEGIN CERTIFICATE-----\nMIIFXzCCBEegAwIBAgISBPHb\/tspN6bL7VVn5Bj9avaoMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ3MzVaFw0x\nOTA1MDgwODQ3MzVaMB8xHTAbBgNVBAMTFHd3dy5tb24tc2l0ZS13ZWIub3JnMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RIIERBY\nShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXvL30D\nByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/iTB1\nsS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov28lX\nbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwPx38y\ny+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNnzQID\nAQABo4ICaDCCAmQwDgYDVR0PAQH\/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB\nBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQtlEPwkGQj\/XwlRqrn\n1kwbShcrezAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF\nBQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j\ncnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j\ncnlwdC5vcmcvMB8GA1UdEQQYMBaCFHd3dy5tb24tc2l0ZS13ZWIub3JnMEwGA1Ud\nIARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0\ndHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv\nAHUAdH7agzGtMxCRIZzOJU9CcMK\/\/V5CIAjGNzV55hB7zFYAAAFox1r9BQAABAMA\nRjBEAiBODaQImCYuu2CbU\/uJoqU\/g3nKE27vadRaldLxvdztyQIgQ0r3tLkacalV\nL+z1AbpvzicxjWjG9bdUHp3P6aMOTJgAdgBj8tvN6DvMLM8LcoQnV2szpI1hd4+9\ndaY4scdoVEvYjQAAAWjHWv7nAAAEAwBHMEUCIAzagHsJZvCkjYW8P+XkQsIGZJb7\np87EgXXunSVcScsxAiEAvWDWIjixzvvdgF9FFHLTE0brQHYMRR4c0FKwwASK59Ew\nDQYJKoZIhvcNAQELBQADggEBAFgN\/SY6O+n19TlAqkAmFuAQJL8lEhm0VSM83P+u\nIgmg6WwbwztzQP7anct\/dgOedMLavWggJhWjIMT+5U5PE1YbPLG75UAMketrkLA2\n\/+5dChfLs4KNzVdo8\/gsNt5IWlRhs+1yf\/kGHy0boR5AlNJ9iWl1StkYpvOr4iZw\nqWqG0dzKx5wL7Yzk1LRecKXYBHzmHme9bBBRirLmc4WHHVSU6jjkIK9s3QAVh2f+\nzOOGDnKgSvbz6HQZDlK9b1cG+bWC6LbDUo\/tCCTif2HQ+wxWbmfCu34lIiV6dWiQ\nWDEX9OHrMOPlPaoa0vOPzKDa3r6PdJiNjEQaAvbIlnEknmE=\n-----END CERTIFICATE-----",
-                            "chain_pem": null,
-                            "fullchain_pem": "-----BEGIN CERTIFICATE-----\nMIIFXzCCBEegAwIBAgISBPHb\/tspN6bL7VVn5Bj9avaoMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ3MzVaFw0x\nOTA1MDgwODQ3MzVaMB8xHTAbBgNVBAMTFHd3dy5tb24tc2l0ZS13ZWIub3JnMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RIIERBY\nShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXvL30D\nByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/iTB1\nsS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov28lX\nbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwPx38y\ny+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNnzQID\nAQABo4ICaDCCAmQwDgYDVR0PAQH\/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB\nBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQtlEPwkGQj\/XwlRqrn\n1kwbShcrezAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF\nBQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j\ncnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j\ncnlwdC5vcmcvMB8GA1UdEQQYMBaCFHd3dy5tb24tc2l0ZS13ZWIub3JnMEwGA1Ud\nIARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0\ndHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv\nAHUAdH7agzGtMxCRIZzOJU9CcMK\/\/V5CIAjGNzV55hB7zFYAAAFox1r9BQAABAMA\nRjBEAiBODaQImCYuu2CbU\/uJoqU\/g3nKE27vadRaldLxvdztyQIgQ0r3tLkacalV\nL+z1AbpvzicxjWjG9bdUHp3P6aMOTJgAdgBj8tvN6DvMLM8LcoQnV2szpI1hd4+9\ndaY4scdoVEvYjQAAAWjHWv7nAAAEAwBHMEUCIAzagHsJZvCkjYW8P+XkQsIGZJb7\np87EgXXunSVcScsxAiEAvWDWIjixzvvdgF9FFHLTE0brQHYMRR4c0FKwwASK59Ew\nDQYJKoZIhvcNAQELBQADggEBAFgN\/SY6O+n19TlAqkAmFuAQJL8lEhm0VSM83P+u\nIgmg6WwbwztzQP7anct\/dgOedMLavWggJhWjIMT+5U5PE1YbPLG75UAMketrkLA2\n\/+5dChfLs4KNzVdo8\/gsNt5IWlRhs+1yf\/kGHy0boR5AlNJ9iWl1StkYpvOr4iZw\nqWqG0dzKx5wL7Yzk1LRecKXYBHzmHme9bBBRirLmc4WHHVSU6jjkIK9s3QAVh2f+\nzOOGDnKgSvbz6HQZDlK9b1cG+bWC6LbDUo\/tCCTif2HQ+wxWbmfCu34lIiV6dWiQ\nWDEX9OHrMOPlPaoa0vOPzKDa3r6PdJiNjEQaAvbIlnEknmE=\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n",
-                            "private_key_pem": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDTTr\/thqcXA5el\nXEXhEggREFhKGCdm2Y+Giq07D2aEq02e1PBkktvi3BZVmjWBLYpKJ9+D6l4psnkT\nZPTele8vfQMHK8Cuxjjrno+num3jAnzEqUZf2Jv51247tv1SBOryjr4G0cJtsl82\n2oynYH+JMHWxLoLwPcjG5wA+FKCUj7U+LJoyZ5LVKaqx2iesqJ015fLD0bagS3KY\ntTejWi\/byVdu7ozfBZd\/ydHpysYCxjP4TcFhrKryxvl27Yt7xfwPakz6p1W3hAoq\nw6M+fA\/HfzLL4GmzlSQKLm0c6RRZ0w1UTUAspA+Kt6yzRPHdU8+q2uVMmHITrD5M\nDhrug2fNAgMBAAECggEBAKXR5ZFbGqJXwlgUqg2uXcAuSGqUu87dKeFV0A1Jz5SK\n7VWYGrGCAaXsOmagph4iA6Sf16oocA5erN7IWdSWamWkv4yQDBvbF+3mtyrThMoh\nOJIHmF88l2IfabTYq8ACdfE0jPDDCMWWtVtRdBEhC9Q3wBPzwPMQOQ\/FVQ5il4Uc\nN\/+2AGtjmwVNmDo420Q40tNY2SCSVCRnuMM4IzzJoDPvilGytqY+5V2e6dnAMtr\/\n+RkWcJR\/xp4BmVSfhFg67Mh2Af68OfoFsck8JPh8byTL2dpiOATMYyX+jUK21agO\nRJ7vNlufMqri0yuR8RvZgr4VPtQ44VmXzzbirpCQTk0CgYEA6WKUB0t+kWnvxOpO\nNGSaMOe4UJaA7ab\/mya0FWrUr9U2dBqTYiGgCBjdIEYaW2RfJUlSONVjVpFOOSOS\nU9U4j8s+D5ykIvP2+eEemL+64\/fbSA6nrQgA\/ljN3yw0dn4ALYpDA0Z1XQJP+UHG\nvaYpONSWylOX9pBV1RKdGJ85SSMCgYEA58iC57SrdXIDQmGXnuS9dwWHojMm9WQ3\n\/VI7ZpmuvuRGArU+HDR9x16AOMG6wde3kl6GVErB\/ACLS\/CnTqYkljTv31gT8yby\ntwW0M8Cgv31LK664m6mrkp5ok8mrbk1L7KQGnhw1PyS9B25DCkn\/wLoFvV+73dNx\nhpWnjsuPMk8CgYEAjYan+ZyATjINoj3r2r2++zUpgkUiPfttOWrI\/cvg2hfTg6iy\nA2ocn4xkW7PnO9CsGfJSmABe0xoec2vsykWcnSZEpjb5GfETrggkA8EQ1jlxkkrA\nx57460Ry44js74YNGZCkfpH1jcdfM+n9WPgwOzQ\/lMYIew6f3iwBc\/LqTD0CgYA6\nwTxVyhmwot8qo5yQvcE9e5xfRII6sFX1FDRUlN6UKz+IDjOZaMD9mfn86TcTTkCN\njQKWOYElBWpKLM3shPc\/UFoCDsy31YavWHXOrKTTBcrZXugTJZaFizxNQlD\/m\/6E\nFSxMRjBFOmXkjVHXONzpGP69e5ge6iucBzG7Y+R\/xwKBgHhQ0\/zrQGXIJzxLtQ41\n4V9+zq2FQYZbsh8WtWIPrDJFecPadxnYMYga34GjAREal6\/gaKO3hzZOhOnyzjTm\nCwxdxjjK7St5QdeF1y43qSZreuwxWHGT19G4ERjlZtZwimRs34DT3+f3QqLG9vp6\nWbR6pOpwcwl7ajk87KHVSeYW\n-----END PRIVATE KEY-----\n",
-                            "lets_encrypt": 1,
-                            "expires_at": "2019-05-08 08:47:35",
-                            "created_at": "2019-02-07 09:47:29",
-                            "updated_at": "2019-02-07 09:47:42"
-                        },
-                        {
-                            "domain": "www.test-thomas.xyz",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "status": "GENERATED",
-                            "cert_pem": "-----BEGIN CERTIFICATE-----\nMIIFXjCCBEagAwIBAgISBNZd\/OeWpmE3swsTjNqk5P7eMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ4MTVaFw0x\nOTA1MDgwODQ4MTVaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDck0jSp0n9jDPHBNPmd8owbIUP\n9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/EWDFW0iOngAE\nPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUEUyJG8QaMbn2p\nbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QYT2I8pZ5xbWHG\ngaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tagPcCzvYSDxfVD\nyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8GCWtYjkRAgMB\nAAGjggJoMIICZDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFPSpWw\/laMs\/uCpYvXFV\nk3VNgr2EMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejBMBgNVHSAE\nRTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRw\nOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB2\nAHR+2oMxrTMQkSGcziVPQnDCv\/1eQiAIxjc1eeYQe8xWAAABaMdbmaEAAAQDAEcw\nRQIgMEIz18ayGC3RZJG1O339GEQM+iW\/9P6HyADnk63weoUCIQDIfRHinm5ueCpf\npDVetRR685\/KOaSSDRt+9qx\/to68ugB2ACk8UZZUyDlluqpQ\/FgH1Ldvv1h6KXLc\npMMM9OVFR\/R4AAABaMdbmYkAAAQDAEcwRQIhAIgTE72ukSeakq6QBno1HIVaSWTn\nPNIWOsmmaSZb9I8IAiBLP33MDb8oDqYdI3Z6CutWn977QNg3UJGGH4MwbOlUfjAN\nBgkqhkiG9w0BAQsFAAOCAQEAZeOw7A4QSaQoE2LpJNSc70forYAO8Y9s4HRAQ48X\nkkdYP0XscCyIm4oODV3Uf90VugZa8n2llMskP93743Bgm3tlLgIfVkcaVJcYwmYv\ntFGzq9RzxAYsnMiD5tqqCj5hww+zs7MBFvaMFZ88DzECHAyT26SR0o624j0GMzQU\ndfVxp0gnlc9ogsHYz3haaSxljHH9m7jcfhs3NM5nc0Q0UQcz5\/rfKzMmdn73mc\/u\n8tI38SfM9gy9yFvTDhZZAcFPYOGm66awxpC+A953dfF4fjcP0HbvbIV5vM9uSJ7B\nfZ7DYwc8sOWA+DHhWEI1vQYPAEYuNBhHO2gRBdSOzOww5Q==\n-----END CERTIFICATE-----",
-                            "chain_pem": null,
-                            "fullchain_pem": "-----BEGIN CERTIFICATE-----\nMIIFXjCCBEagAwIBAgISBNZd\/OeWpmE3swsTjNqk5P7eMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ4MTVaFw0x\nOTA1MDgwODQ4MTVaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDck0jSp0n9jDPHBNPmd8owbIUP\n9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/EWDFW0iOngAE\nPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUEUyJG8QaMbn2p\nbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QYT2I8pZ5xbWHG\ngaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tagPcCzvYSDxfVD\nyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8GCWtYjkRAgMB\nAAGjggJoMIICZDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFPSpWw\/laMs\/uCpYvXFV\nk3VNgr2EMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejBMBgNVHSAE\nRTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRw\nOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB2\nAHR+2oMxrTMQkSGcziVPQnDCv\/1eQiAIxjc1eeYQe8xWAAABaMdbmaEAAAQDAEcw\nRQIgMEIz18ayGC3RZJG1O339GEQM+iW\/9P6HyADnk63weoUCIQDIfRHinm5ueCpf\npDVetRR685\/KOaSSDRt+9qx\/to68ugB2ACk8UZZUyDlluqpQ\/FgH1Ldvv1h6KXLc\npMMM9OVFR\/R4AAABaMdbmYkAAAQDAEcwRQIhAIgTE72ukSeakq6QBno1HIVaSWTn\nPNIWOsmmaSZb9I8IAiBLP33MDb8oDqYdI3Z6CutWn977QNg3UJGGH4MwbOlUfjAN\nBgkqhkiG9w0BAQsFAAOCAQEAZeOw7A4QSaQoE2LpJNSc70forYAO8Y9s4HRAQ48X\nkkdYP0XscCyIm4oODV3Uf90VugZa8n2llMskP93743Bgm3tlLgIfVkcaVJcYwmYv\ntFGzq9RzxAYsnMiD5tqqCj5hww+zs7MBFvaMFZ88DzECHAyT26SR0o624j0GMzQU\ndfVxp0gnlc9ogsHYz3haaSxljHH9m7jcfhs3NM5nc0Q0UQcz5\/rfKzMmdn73mc\/u\n8tI38SfM9gy9yFvTDhZZAcFPYOGm66awxpC+A953dfF4fjcP0HbvbIV5vM9uSJ7B\nfZ7DYwc8sOWA+DHhWEI1vQYPAEYuNBhHO2gRBdSOzOww5Q==\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n",
-                            "private_key_pem": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDck0jSp0n9jDPH\nBNPmd8owbIUP9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/\nEWDFW0iOngAEPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUE\nUyJG8QaMbn2pbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QY\nT2I8pZ5xbWHGgaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tag\nPcCzvYSDxfVDyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8\nGCWtYjkRAgMBAAECggEADaQaK9TmsYR7K0K0LBuaaHY9oGgNRyzj2\/GYcSi\/rR+u\nZylRo9BaZXsveN5cI5kgVBQMGlxlZUrL00\/q0Sm9CfzheWHD8dPIIBFr1GbYtVV6\nUrml2f1SNP6U8zUhb6wRVE7rG0Vyrl\/GSkct5n8\/bW3j3Zd1sqoFAWZKWP0Q7Vga\nWnN9PNXOR\/a\/dn6TlBMtYdfI7z7SwzEJlOl2bgH4hkaK6kmbZY7IhUwUOES4TqXE\nb6Cw\/JpTDD5Xid\/z93zRAN9Wym9sftMvHQ3vM7qMDqJW6bvlnw85NLOmzTxmUUkK\n49JydWRmKPXEDsqomg1mzaQ5w0YtcEqrE1efmDuiQQKBgQD4gDBKnRZfqpQ9QTCL\nSmWWDnQEd6lLjBNQmKhgAK\/QiBKszafr9K8RFWNMQ4sL2PcBnUKW3xqdT9z03PfO\nAm+oZITrL3AYx+JKQ3WlSAu19TADgwufyTDM1ybreTKOudfoBCz6DEBCfukpRUCo\nelUb5xszDtOiMOnAA1UIcS3sGQKBgQDjO1sgwUXKXaLE+D7j54lnh1iSxuS\/mPe4\nwZeDHtESrjq7\/nBeIuNAWoHwO1Ek1LhM2BqPYiqFksx+xbHKgPVOXItU7tX9EACH\njAZOek0TRFgSuCl5rffcOEIos3CrtsCuN5dsR\/SRTF\/Lvb2OPVpiW8KvdPurtO3N\n1gqeaarTuQKBgC96\/r8i6KV6yDwz+nyCyIo1VMGNw5ElwIMDyBgfyXgEp9zQpqcU\n52ZSOdjWhvjKideLHrAJDOLF4af\/mHGKUZ9RJXxyYe66MmiSHyZnb6VipbvmDBCJ\ntoNNEKipTZmrtK8mLRnRwW1zJkW2b7ZBOYXNUIse6BzzT5ZajKLCTU3xAoGAAQiC\nD5IRaSwn01F1p7+jxk69Pl2dKKnfZn2q3LPFK5qTNcugYy0xb1d6A8ehRNOayu6o\noEJIAzd5qpHnjw4rD2IoWAiF\/JKYDgW6+ZxgwVesNtmThrQdzmiLFHhMaNt54NDr\n5Vgmaoq4XMrOE9l\/kbbtGbMkedFmy2rPvYypdDECgYEAmK2DPfL613Mp6e0j5+qo\n2iCzz1SMm2QKSOAW+\/dbuE+BIxcT295vq\/u4+lcaTBXUeG6aEdkdbpZe4+hJyteF\nEE8NdMCFHsV0QBW\/pN5szkou7967lbb\/4u423r4WdZDUkCTCVNIKG0975\/cyVCEC\nJCwiB5cREBk64d4mas5XfsA=\n-----END PRIVATE KEY-----\n",
-                            "lets_encrypt": 1,
-                            "expires_at": "2019-05-08 08:48:15",
-                            "created_at": "2019-02-07 09:48:08",
-                            "updated_at": "2019-02-07 09:48:22"
+                            "status": "NONE",
+                            "cert_pem": "-----BEGIN CERTIFICATE-----\nMIIGETCCBPmgAwIBAgISAzBCK9CPYfvBmggSZQHFOHQiMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODA5MjUwOTAyMDBaFw0x\nODEyMjQwOTAyMDBaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC\/LdXgRgUy5Wnq+QzE84j+4cZf\nGpebhVej0yMIm8VLtSE1lYv53T0mMiQFM9YalwTrA4RurF6LReT1Tb7iFvRR6wu5\niXzMXYdmmybF6lmkDcMkbHVp3ZCyPXmOnZnCM+NtrR76byzEL8GR53\/CzYBVHheQ\n0LQN5vyMqDZdR6h8jvI6tQiARWiT15AVWGU6GwCPBXGNezRSmyYPc6X6YRMZ26QP\nJalanygIkH2u4R0aJ1g4dXvix2vEO01t9w9lReeWwlZr3wXFtB3I3LkDnAu6IPc0\n2yWagr5BLqwIgD8jvXPSULJrSZ4ju+Y92LQJGeMvod30pXiL6FIRlAZfwgZbAgMB\nAAGjggMbMIIDFzAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFDc3TOiVRFduXVoZVzEL\nbg\/Xa68uMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejCB\/gYDVR0g\nBIH2MIHzMAgGBmeBDAECATCB5gYLKwYBBAGC3xMBAQEwgdYwJgYIKwYBBQUHAgEW\nGmh0dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIGrBggrBgEFBQcCAjCBngyBm1Ro\naXMgQ2VydGlmaWNhdGUgbWF5IG9ubHkgYmUgcmVsaWVkIHVwb24gYnkgUmVseWlu\nZyBQYXJ0aWVzIGFuZCBvbmx5IGluIGFjY29yZGFuY2Ugd2l0aCB0aGUgQ2VydGlm\naWNhdGUgUG9saWN5IGZvdW5kIGF0IGh0dHBzOi8vbGV0c2VuY3J5cHQub3JnL3Jl\ncG9zaXRvcnkvMIIBBAYKKwYBBAHWeQIEAgSB9QSB8gDwAHYAb1N2rDHwMRnYmQCk\nURX\/dxUcEdkCwQApBo2yCJo32RMAAAFmEC2sNwAABAMARzBFAiBKRRXkQ\/qJEhaB\nbo5gvc+ZWuLChrxKsIZ6FbupJvliNQIhAMP2OzSUCCrA9FKkdg2z8gDiBSbSkCZu\n8w76VBsZlSgCAHYApFASaQVaFVReYhGrN7wQP2KuVXakXksXFEU+GyIQaiUAAAFm\nEC2rSAAABAMARzBFAiEAySvbq0S3xKvDtvb6DG0V88ak1I4unT4tlaidsInFLf4C\nIFE5hIBhpiGtsRkNQ+IL2o56SQASuNFVHx69hp1wT0KJMA0GCSqGSIb3DQEBCwUA\nA4IBAQBc5IgWdTRuyFmRITv1eOzpXs0hvjj04KBhnDNBaCQgtDidEgmI81089+g0\nzdCZyfi1hNlu7R\/\/0SJF\/58juU0vaGE\/b3FTyWUi9iRe9db8MUH76qbb7sEHa3j\/\nTlqsCYVKX3te5u7hGHyCchdDdGaVxBJD4NMt45qcQTo3SNCVWFCRa+aYXVzDPu1V\nTe7YtpmnawbqhfUTI3urdHaLk2FTJfSUPUi5mcqTBlnuzLoTXKXEvNr0UdZE\/Ia+\nJ5d2Ps6a9oA9lJfeXwyH1uSn1brkL3UUHd6DODsmz5rlAjqCxBTdIBYp0lw8QQ85\nytHr6b9PBaNWOHm3UAmiE\/bhcRVQ\n-----END CERTIFICATE-----\n\n",
+                            "chain_pem": "-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n\n",
+                            "fullchain_pem": "-----BEGIN CERTIFICATE-----\nMIIGETCCBPmgAwIBAgISAzBCK9CPYfvBmggSZQHFOHQiMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODA5MjUwOTAyMDBaFw0x\nODEyMjQwOTAyMDBaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC\/LdXgRgUy5Wnq+QzE84j+4cZf\nGpebhVej0yMIm8VLtSE1lYv53T0mMiQFM9YalwTrA4RurF6LReT1Tb7iFvRR6wu5\niXzMXYdmmybF6lmkDcMkbHVp3ZCyPXmOnZnCM+NtrR76byzEL8GR53\/CzYBVHheQ\n0LQN5vyMqDZdR6h8jvI6tQiARWiT15AVWGU6GwCPBXGNezRSmyYPc6X6YRMZ26QP\nJalanygIkH2u4R0aJ1g4dXvix2vEO01t9w9lReeWwlZr3wXFtB3I3LkDnAu6IPc0\n2yWagr5BLqwIgD8jvXPSULJrSZ4ju+Y92LQJGeMvod30pXiL6FIRlAZfwgZbAgMB\nAAGjggMbMIIDFzAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFDc3TOiVRFduXVoZVzEL\nbg\/Xa68uMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejCB\/gYDVR0g\nBIH2MIHzMAgGBmeBDAECATCB5gYLKwYBBAGC3xMBAQEwgdYwJgYIKwYBBQUHAgEW\nGmh0dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIGrBggrBgEFBQcCAjCBngyBm1Ro\naXMgQ2VydGlmaWNhdGUgbWF5IG9ubHkgYmUgcmVsaWVkIHVwb24gYnkgUmVseWlu\nZyBQYXJ0aWVzIGFuZCBvbmx5IGluIGFjY29yZGFuY2Ugd2l0aCB0aGUgQ2VydGlm\naWNhdGUgUG9saWN5IGZvdW5kIGF0IGh0dHBzOi8vbGV0c2VuY3J5cHQub3JnL3Jl\ncG9zaXRvcnkvMIIBBAYKKwYBBAHWeQIEAgSB9QSB8gDwAHYAb1N2rDHwMRnYmQCk\nURX\/dxUcEdkCwQApBo2yCJo32RMAAAFmEC2sNwAABAMARzBFAiBKRRXkQ\/qJEhaB\nbo5gvc+ZWuLChrxKsIZ6FbupJvliNQIhAMP2OzSUCCrA9FKkdg2z8gDiBSbSkCZu\n8w76VBsZlSgCAHYApFASaQVaFVReYhGrN7wQP2KuVXakXksXFEU+GyIQaiUAAAFm\nEC2rSAAABAMARzBFAiEAySvbq0S3xKvDtvb6DG0V88ak1I4unT4tlaidsInFLf4C\nIFE5hIBhpiGtsRkNQ+IL2o56SQASuNFVHx69hp1wT0KJMA0GCSqGSIb3DQEBCwUA\nA4IBAQBc5IgWdTRuyFmRITv1eOzpXs0hvjj04KBhnDNBaCQgtDidEgmI81089+g0\nzdCZyfi1hNlu7R\/\/0SJF\/58juU0vaGE\/b3FTyWUi9iRe9db8MUH76qbb7sEHa3j\/\nTlqsCYVKX3te5u7hGHyCchdDdGaVxBJD4NMt45qcQTo3SNCVWFCRa+aYXVzDPu1V\nTe7YtpmnawbqhfUTI3urdHaLk2FTJfSUPUi5mcqTBlnuzLoTXKXEvNr0UdZE\/Ia+\nJ5d2Ps6a9oA9lJfeXwyH1uSn1brkL3UUHd6DODsmz5rlAjqCxBTdIBYp0lw8QQ85\nytHr6b9PBaNWOHm3UAmiE\/bhcRVQ\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n\n",
+                            "private_key_pem": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC\/LdXgRgUy5Wnq\n+QzE84j+4cZfGpebhVej0yMIm8VLtSE1lYv53T0mMiQFM9YalwTrA4RurF6LReT1\nTb7iFvRR6wu5iXzMXYdmmybF6lmkDcMkbHVp3ZCyPXmOnZnCM+NtrR76byzEL8GR\n53\/CzYBVHheQ0LQN5vyMqDZdR6h8jvI6tQiARWiT15AVWGU6GwCPBXGNezRSmyYP\nc6X6YRMZ26QPJalanygIkH2u4R0aJ1g4dXvix2vEO01t9w9lReeWwlZr3wXFtB3I\n3LkDnAu6IPc02yWagr5BLqwIgD8jvXPSULJrSZ4ju+Y92LQJGeMvod30pXiL6FIR\nlAZfwgZbAgMBAAECggEAExqsdbXpjRV5yR5MFV5UwUukfBp3LfZcNKXDqXePdqpK\nAEXKcBSYqLl3+gEdExkmR6nZUQnuhLJeV9kGCyfKEGmRiV\/g1bc+8ZTtgfeSL5+k\ncX5ZGVQnwnf8LrE3DT4MKwiSwOndKlmvWTot\/TR174uLRVBlvcHoWNHyZM3lW1Tt\nTSCNOA34orj9wvlpGCuoqq2Z8qRylpR7AJpKN21JDIMr\/xYH4XEevkn\/l5g9TK6Z\nW1iurEjU2cPRmqBWbiQvowmfoCo7WLemS5r3UdZ2IukLCtfTMT2lkcfKbLL9PEJU\n1SzGPQJHnJ4BOnpwNYi6ZJaVQV6sw1E0RtQiZtVhkQKBgQDhJCWIQrs\/Pso5wlFA\np0Cgyjz+5gd3zNSryI1Nm9s+WnZ80CFYAlsxrLgQKdGGRm7M64hxgncLZ2OLCn7k\nP5LJ80JX9U4JbAmC3pIWoTjKt26u9Qsk3+rEZsde24Q5io4DsjLZLIzemCQVavUz\n8ErB6daeg\/bEa9Te3jsrLRok4wKBgQDZYgKHcsXTJqC590bvWXqILKxvXGxM4XBC\n9iDos0oLPzXpq1+EEKcWUX8mqmX7aJROZoc\/5EMKnXitnUkkIaY5ikbbkGkOD1tK\niUyXfGQdbJWDjZtO5\/u9rVGZOcAtf984yxyA3wZekTKoMMGzJkIsrK35vqFoaIzN\nESqalV3KKQKBgQC18EEIYWzyCirgDEEfL0nR5jzufDOyw2tluvc9rWK6e95etM8N\nUTIi7YH9Rd4VVZu6q+giWp0bMRzHQt8SUrGr05JchFbg1FbHVFfYQ8ciQqQGbO3p\nia4tsyUQafLrkSV8pSfkStU4GNioGjw3EctH81FF3jyvtLhctlg4ZwVGowKBgQC7\nJvV0day5YG1KDgllMc0bhhKjAZhADGshS1QD46\/gxPf+iEuAoPGpdlqZCGUqsNvW\nL9FLgZLyhaaLGnoJAGti6JiemdLIhxIatuBZH3\/2ETEcBINsyK7km15AJAc\/ZPLi\nq4OLs\/eA3VMWmHt7aHnaioRyGtxNzo1CVAAw\/F22GQKBgQC38Sr1kXz61cQ0+2KR\n2PTwolkwfT1pPvIX0w5vaC3S+JLhRju0btASpxOtFywMiB+qfr1CscJf3UDiHXH2\nDPUoPG0nlUj2joMZHOdCxgpUsyhulIWscrudefgSOB\/aIz5HvQtcs73TKxM8VX38\nsnc5nkufzV1i3jnsg6Qq6cudcw==\n-----END PRIVATE KEY-----\n\n",
+                            "lets_encrypt": 0,
+                            "expires_at": "2018-11-28 01:01:31",
+                            "created_at": "2019-02-21 15:05:39",
+                            "updated_at": "2019-02-21 15:05:39"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 2,
-                            "count": 2,
+                            "total": 1,
+                            "count": 1,
                             "per_page": 20,
                             "current_page": 1,
                             "total_pages": 1,
@@ -5885,62 +5614,11 @@
             },
             "OrderIndexExampleResponse": {
                 "value": {
-                    "data": [
-                        {
-                            "id": "95fa4847-22d2-4bbe-a121-cd80537a980a",
-                            "domain": "www.mon-site-web.org",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "key_type": "rsa",
-                            "key_size": 2048,
-                            "domains": "[\"www.mon-site-web.org\"]",
-                            "not_before": null,
-                            "not_after": null,
-                            "url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/order\/50861688\/305411758",
-                            "status": "valid",
-                            "expires": "2019-05-08 08:47:35",
-                            "identifiers": "[{\"type\": \"dns\", \"value\": \"www.mon-site-web.org\"}]",
-                            "authorization_urls": "[\"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\"]",
-                            "authorizations": "[{\"status\": \"valid\", \"expires\": \"2019-03-06T17:21:41Z\", \"challenges\": [{\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\/12240844282\", \"type\": \"tls-alpn-01\", \"token\": \"K_41ToFmK5aF2kXeLNEGMO6AGRXgt2R6Ye2Nj06-wDc\", \"status\": \"pending\"}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\/12240844283\", \"type\": \"dns-01\", \"token\": \"yXUAM538VcDds46xwaO4hBXRT9OyNWTlMM-vm4M0Gnk\", \"status\": \"pending\"}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\/12240844284\", \"type\": \"http-01\", \"token\": \"vJEGWf-0Ma92I__wvIpZp_J3sjfmkrIKhg6LH_vSUqU\", \"status\": \"valid\", \"validationRecord\": [{\"url\": \"http:\/\/www.mon-site-web.org\/.well-known\/acme-challenge\/vJEGWf-0Ma92I__wvIpZp_J3sjfmkrIKhg6LH_vSUqU\", \"port\": \"80\", \"hostname\": \"www.mon-site-web.org\", \"addressUsed\": \"91.198.105.214\", \"addressesResolved\": [\"91.198.105.214\"]}]}], \"identifier\": {\"type\": \"dns\", \"value\": \"www.mon-site-web.org\"}, \"authorization_url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/xDeJuBbmvy5140GQ4tbDarp6zVskCoHYpScUdLlYL_M\"}]",
-                            "finalize_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/finalize\/50861688\/305411758",
-                            "certificate_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/cert\/04f1dbfedb2937a6cbed5567e418fd6af6a8",
-                            "certificate_private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDTTr\/thqcXA5el\nXEXhEggREFhKGCdm2Y+Giq07D2aEq02e1PBkktvi3BZVmjWBLYpKJ9+D6l4psnkT\nZPTele8vfQMHK8Cuxjjrno+num3jAnzEqUZf2Jv51247tv1SBOryjr4G0cJtsl82\n2oynYH+JMHWxLoLwPcjG5wA+FKCUj7U+LJoyZ5LVKaqx2iesqJ015fLD0bagS3KY\ntTejWi\/byVdu7ozfBZd\/ydHpysYCxjP4TcFhrKryxvl27Yt7xfwPakz6p1W3hAoq\nw6M+fA\/HfzLL4GmzlSQKLm0c6RRZ0w1UTUAspA+Kt6yzRPHdU8+q2uVMmHITrD5M\nDhrug2fNAgMBAAECggEBAKXR5ZFbGqJXwlgUqg2uXcAuSGqUu87dKeFV0A1Jz5SK\n7VWYGrGCAaXsOmagph4iA6Sf16oocA5erN7IWdSWamWkv4yQDBvbF+3mtyrThMoh\nOJIHmF88l2IfabTYq8ACdfE0jPDDCMWWtVtRdBEhC9Q3wBPzwPMQOQ\/FVQ5il4Uc\nN\/+2AGtjmwVNmDo420Q40tNY2SCSVCRnuMM4IzzJoDPvilGytqY+5V2e6dnAMtr\/\n+RkWcJR\/xp4BmVSfhFg67Mh2Af68OfoFsck8JPh8byTL2dpiOATMYyX+jUK21agO\nRJ7vNlufMqri0yuR8RvZgr4VPtQ44VmXzzbirpCQTk0CgYEA6WKUB0t+kWnvxOpO\nNGSaMOe4UJaA7ab\/mya0FWrUr9U2dBqTYiGgCBjdIEYaW2RfJUlSONVjVpFOOSOS\nU9U4j8s+D5ykIvP2+eEemL+64\/fbSA6nrQgA\/ljN3yw0dn4ALYpDA0Z1XQJP+UHG\nvaYpONSWylOX9pBV1RKdGJ85SSMCgYEA58iC57SrdXIDQmGXnuS9dwWHojMm9WQ3\n\/VI7ZpmuvuRGArU+HDR9x16AOMG6wde3kl6GVErB\/ACLS\/CnTqYkljTv31gT8yby\ntwW0M8Cgv31LK664m6mrkp5ok8mrbk1L7KQGnhw1PyS9B25DCkn\/wLoFvV+73dNx\nhpWnjsuPMk8CgYEAjYan+ZyATjINoj3r2r2++zUpgkUiPfttOWrI\/cvg2hfTg6iy\nA2ocn4xkW7PnO9CsGfJSmABe0xoec2vsykWcnSZEpjb5GfETrggkA8EQ1jlxkkrA\nx57460Ry44js74YNGZCkfpH1jcdfM+n9WPgwOzQ\/lMYIew6f3iwBc\/LqTD0CgYA6\nwTxVyhmwot8qo5yQvcE9e5xfRII6sFX1FDRUlN6UKz+IDjOZaMD9mfn86TcTTkCN\njQKWOYElBWpKLM3shPc\/UFoCDsy31YavWHXOrKTTBcrZXugTJZaFizxNQlD\/m\/6E\nFSxMRjBFOmXkjVHXONzpGP69e5ge6iucBzG7Y+R\/xwKBgHhQ0\/zrQGXIJzxLtQ41\n4V9+zq2FQYZbsh8WtWIPrDJFecPadxnYMYga34GjAREal6\/gaKO3hzZOhOnyzjTm\nCwxdxjjK7St5QdeF1y43qSZreuwxWHGT19G4ERjlZtZwimRs34DT3+f3QqLG9vp6\nWbR6pOpwcwl7ajk87KHVSeYW\n-----END PRIVATE KEY-----\n",
-                            "certificate_public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RII\nERBYShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXv\nL30DByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/\niTB1sS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov\n28lXbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwP\nx38yy+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNn\nzQIDAQAB\n-----END PUBLIC KEY-----\n",
-                            "certificate_certificate": "-----BEGIN CERTIFICATE-----\nMIIFXzCCBEegAwIBAgISBPHb\/tspN6bL7VVn5Bj9avaoMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ3MzVaFw0x\nOTA1MDgwODQ3MzVaMB8xHTAbBgNVBAMTFHd3dy5tb24tc2l0ZS13ZWIub3JnMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RIIERBY\nShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXvL30D\nByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/iTB1\nsS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov28lX\nbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwPx38y\ny+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNnzQID\nAQABo4ICaDCCAmQwDgYDVR0PAQH\/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB\nBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQtlEPwkGQj\/XwlRqrn\n1kwbShcrezAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF\nBQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j\ncnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j\ncnlwdC5vcmcvMB8GA1UdEQQYMBaCFHd3dy5tb24tc2l0ZS13ZWIub3JnMEwGA1Ud\nIARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0\ndHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv\nAHUAdH7agzGtMxCRIZzOJU9CcMK\/\/V5CIAjGNzV55hB7zFYAAAFox1r9BQAABAMA\nRjBEAiBODaQImCYuu2CbU\/uJoqU\/g3nKE27vadRaldLxvdztyQIgQ0r3tLkacalV\nL+z1AbpvzicxjWjG9bdUHp3P6aMOTJgAdgBj8tvN6DvMLM8LcoQnV2szpI1hd4+9\ndaY4scdoVEvYjQAAAWjHWv7nAAAEAwBHMEUCIAzagHsJZvCkjYW8P+XkQsIGZJb7\np87EgXXunSVcScsxAiEAvWDWIjixzvvdgF9FFHLTE0brQHYMRR4c0FKwwASK59Ew\nDQYJKoZIhvcNAQELBQADggEBAFgN\/SY6O+n19TlAqkAmFuAQJL8lEhm0VSM83P+u\nIgmg6WwbwztzQP7anct\/dgOedMLavWggJhWjIMT+5U5PE1YbPLG75UAMketrkLA2\n\/+5dChfLs4KNzVdo8\/gsNt5IWlRhs+1yf\/kGHy0boR5AlNJ9iWl1StkYpvOr4iZw\nqWqG0dzKx5wL7Yzk1LRecKXYBHzmHme9bBBRirLmc4WHHVSU6jjkIK9s3QAVh2f+\nzOOGDnKgSvbz6HQZDlK9b1cG+bWC6LbDUo\/tCCTif2HQ+wxWbmfCu34lIiV6dWiQ\nWDEX9OHrMOPlPaoa0vOPzKDa3r6PdJiNjEQaAvbIlnEknmE=\n-----END CERTIFICATE-----",
-                            "certificate_fullchain": "-----BEGIN CERTIFICATE-----\nMIIFXzCCBEegAwIBAgISBPHb\/tspN6bL7VVn5Bj9avaoMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ3MzVaFw0x\nOTA1MDgwODQ3MzVaMB8xHTAbBgNVBAMTFHd3dy5tb24tc2l0ZS13ZWIub3JnMIIB\nIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA006\/7YanFwOXpVxF4RIIERBY\nShgnZtmPhoqtOw9mhKtNntTwZJLb4twWVZo1gS2KSiffg+peKbJ5E2T03pXvL30D\nByvArsY4656Pp7pt4wJ8xKlGX9ib+dduO7b9UgTq8o6+BtHCbbJfNtqMp2B\/iTB1\nsS6C8D3IxucAPhSglI+1PiyaMmeS1SmqsdonrKidNeXyw9G2oEtymLU3o1ov28lX\nbu6M3wWXf8nR6crGAsYz+E3BYayq8sb5du2Le8X8D2pM+qdVt4QKKsOjPnwPx38y\ny+Bps5UkCi5tHOkUWdMNVE1ALKQPiress0Tx3VPPqtrlTJhyE6w+TA4a7oNnzQID\nAQABo4ICaDCCAmQwDgYDVR0PAQH\/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB\nBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQtlEPwkGQj\/XwlRqrn\n1kwbShcrezAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF\nBQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j\ncnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j\ncnlwdC5vcmcvMB8GA1UdEQQYMBaCFHd3dy5tb24tc2l0ZS13ZWIub3JnMEwGA1Ud\nIARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0\ndHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv\nAHUAdH7agzGtMxCRIZzOJU9CcMK\/\/V5CIAjGNzV55hB7zFYAAAFox1r9BQAABAMA\nRjBEAiBODaQImCYuu2CbU\/uJoqU\/g3nKE27vadRaldLxvdztyQIgQ0r3tLkacalV\nL+z1AbpvzicxjWjG9bdUHp3P6aMOTJgAdgBj8tvN6DvMLM8LcoQnV2szpI1hd4+9\ndaY4scdoVEvYjQAAAWjHWv7nAAAEAwBHMEUCIAzagHsJZvCkjYW8P+XkQsIGZJb7\np87EgXXunSVcScsxAiEAvWDWIjixzvvdgF9FFHLTE0brQHYMRR4c0FKwwASK59Ew\nDQYJKoZIhvcNAQELBQADggEBAFgN\/SY6O+n19TlAqkAmFuAQJL8lEhm0VSM83P+u\nIgmg6WwbwztzQP7anct\/dgOedMLavWggJhWjIMT+5U5PE1YbPLG75UAMketrkLA2\n\/+5dChfLs4KNzVdo8\/gsNt5IWlRhs+1yf\/kGHy0boR5AlNJ9iWl1StkYpvOr4iZw\nqWqG0dzKx5wL7Yzk1LRecKXYBHzmHme9bBBRirLmc4WHHVSU6jjkIK9s3QAVh2f+\nzOOGDnKgSvbz6HQZDlK9b1cG+bWC6LbDUo\/tCCTif2HQ+wxWbmfCu34lIiV6dWiQ\nWDEX9OHrMOPlPaoa0vOPzKDa3r6PdJiNjEQaAvbIlnEknmE=\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n",
-                            "fetched_at": "2019-02-07 09:47:42",
-                            "created_at": "2019-02-07 09:47:37",
-                            "updated_at": "2019-02-07 09:47:42"
-                        },
-                        {
-                            "id": "de4fe8e0-82d6-47ee-be73-743ec28715c3",
-                            "domain": "www.test-thomas.xyz",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "key_type": "rsa",
-                            "key_size": 2048,
-                            "domains": "[\"www.test-thomas.xyz\"]",
-                            "not_before": null,
-                            "not_after": null,
-                            "url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/order\/50861688\/305412271",
-                            "status": "valid",
-                            "expires": "2019-05-08 08:48:15",
-                            "identifiers": "[{\"type\": \"dns\", \"value\": \"www.test-thomas.xyz\"}]",
-                            "authorization_urls": "[\"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\"]",
-                            "authorizations": "[{\"status\": \"valid\", \"expires\": \"2019-03-07T14:18:37Z\", \"challenges\": [{\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\/12271287988\", \"type\": \"dns-01\", \"token\": \"0XUMXiFmU7VC55nIM-06wCjZ4xNxJbo5S6aZ6V7Fwkc\", \"status\": \"pending\"}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\/12271287989\", \"type\": \"http-01\", \"token\": \"227jejLAY988Bc725geKjWj6Ug8hfib83k5B1XO7mkQ\", \"status\": \"valid\", \"validationRecord\": [{\"url\": \"http:\/\/www.test-thomas.xyz\/.well-known\/acme-challenge\/227jejLAY988Bc725geKjWj6Ug8hfib83k5B1XO7mkQ\", \"port\": \"80\", \"hostname\": \"www.test-thomas.xyz\", \"addressUsed\": \"91.198.105.214\", \"addressesResolved\": [\"91.198.105.214\"]}]}, {\"url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/challenge\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\/12271287990\", \"type\": \"tls-alpn-01\", \"token\": \"vibyAaRgjsGJoOq2B9tVbfABOQ_7P4ERkfzIL9R4v5g\", \"status\": \"pending\"}], \"identifier\": {\"type\": \"dns\", \"value\": \"www.test-thomas.xyz\"}, \"authorization_url\": \"https:\/\/acme-v02.api.letsencrypt.org\/acme\/authz\/wYo3LEKjj2F7tXsE7iGx8traaqo-sIAEVOgj8b1df3E\"}]",
-                            "finalize_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/finalize\/50861688\/305412271",
-                            "certificate_url": "https:\/\/acme-v02.api.letsencrypt.org\/acme\/cert\/04d65dfce796a66137b30b138cdaa4e4fede",
-                            "certificate_private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDck0jSp0n9jDPH\nBNPmd8owbIUP9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/\nEWDFW0iOngAEPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUE\nUyJG8QaMbn2pbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QY\nT2I8pZ5xbWHGgaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tag\nPcCzvYSDxfVDyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8\nGCWtYjkRAgMBAAECggEADaQaK9TmsYR7K0K0LBuaaHY9oGgNRyzj2\/GYcSi\/rR+u\nZylRo9BaZXsveN5cI5kgVBQMGlxlZUrL00\/q0Sm9CfzheWHD8dPIIBFr1GbYtVV6\nUrml2f1SNP6U8zUhb6wRVE7rG0Vyrl\/GSkct5n8\/bW3j3Zd1sqoFAWZKWP0Q7Vga\nWnN9PNXOR\/a\/dn6TlBMtYdfI7z7SwzEJlOl2bgH4hkaK6kmbZY7IhUwUOES4TqXE\nb6Cw\/JpTDD5Xid\/z93zRAN9Wym9sftMvHQ3vM7qMDqJW6bvlnw85NLOmzTxmUUkK\n49JydWRmKPXEDsqomg1mzaQ5w0YtcEqrE1efmDuiQQKBgQD4gDBKnRZfqpQ9QTCL\nSmWWDnQEd6lLjBNQmKhgAK\/QiBKszafr9K8RFWNMQ4sL2PcBnUKW3xqdT9z03PfO\nAm+oZITrL3AYx+JKQ3WlSAu19TADgwufyTDM1ybreTKOudfoBCz6DEBCfukpRUCo\nelUb5xszDtOiMOnAA1UIcS3sGQKBgQDjO1sgwUXKXaLE+D7j54lnh1iSxuS\/mPe4\nwZeDHtESrjq7\/nBeIuNAWoHwO1Ek1LhM2BqPYiqFksx+xbHKgPVOXItU7tX9EACH\njAZOek0TRFgSuCl5rffcOEIos3CrtsCuN5dsR\/SRTF\/Lvb2OPVpiW8KvdPurtO3N\n1gqeaarTuQKBgC96\/r8i6KV6yDwz+nyCyIo1VMGNw5ElwIMDyBgfyXgEp9zQpqcU\n52ZSOdjWhvjKideLHrAJDOLF4af\/mHGKUZ9RJXxyYe66MmiSHyZnb6VipbvmDBCJ\ntoNNEKipTZmrtK8mLRnRwW1zJkW2b7ZBOYXNUIse6BzzT5ZajKLCTU3xAoGAAQiC\nD5IRaSwn01F1p7+jxk69Pl2dKKnfZn2q3LPFK5qTNcugYy0xb1d6A8ehRNOayu6o\noEJIAzd5qpHnjw4rD2IoWAiF\/JKYDgW6+ZxgwVesNtmThrQdzmiLFHhMaNt54NDr\n5Vgmaoq4XMrOE9l\/kbbtGbMkedFmy2rPvYypdDECgYEAmK2DPfL613Mp6e0j5+qo\n2iCzz1SMm2QKSOAW+\/dbuE+BIxcT295vq\/u4+lcaTBXUeG6aEdkdbpZe4+hJyteF\nEE8NdMCFHsV0QBW\/pN5szkou7967lbb\/4u423r4WdZDUkCTCVNIKG0975\/cyVCEC\nJCwiB5cREBk64d4mas5XfsA=\n-----END PRIVATE KEY-----\n",
-                            "certificate_public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3JNI0qdJ\/YwzxwTT5nfK\nMGyFD\/W\/ZgTdoPfgVvzU2f+XVC3H2z0XjKNGDSCXtxA6cFPkXD\/n2h1AfxFgxVtI\njp4ABD8\/M1WVPrE6qtXwudZqwilYV548Z2J3vnEaQ21FsVB++EQWOOAlBFMiRvEG\njG59qWyIUFNauooO\/L3c6EKEqmre6hRa5+CQvE\/LU\/aJLUZa7O7PVId0GE9iPKWe\ncW1hxoGgIW+1rpdTYe14VB\/OItFYXKOrWoHFgiofZO+jS8qPb9S0BPbWoD3As72E\ng8X1Q8kc78pf6aFDOUhvSZWAv9zMY+zLCX72b73wRb1RGjEIcb3KO392\/BglrWI5\nEQIDAQAB\n-----END PUBLIC KEY-----\n",
-                            "certificate_certificate": "-----BEGIN CERTIFICATE-----\nMIIFXjCCBEagAwIBAgISBNZd\/OeWpmE3swsTjNqk5P7eMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ4MTVaFw0x\nOTA1MDgwODQ4MTVaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDck0jSp0n9jDPHBNPmd8owbIUP\n9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/EWDFW0iOngAE\nPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUEUyJG8QaMbn2p\nbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QYT2I8pZ5xbWHG\ngaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tagPcCzvYSDxfVD\nyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8GCWtYjkRAgMB\nAAGjggJoMIICZDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFPSpWw\/laMs\/uCpYvXFV\nk3VNgr2EMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejBMBgNVHSAE\nRTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRw\nOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB2\nAHR+2oMxrTMQkSGcziVPQnDCv\/1eQiAIxjc1eeYQe8xWAAABaMdbmaEAAAQDAEcw\nRQIgMEIz18ayGC3RZJG1O339GEQM+iW\/9P6HyADnk63weoUCIQDIfRHinm5ueCpf\npDVetRR685\/KOaSSDRt+9qx\/to68ugB2ACk8UZZUyDlluqpQ\/FgH1Ldvv1h6KXLc\npMMM9OVFR\/R4AAABaMdbmYkAAAQDAEcwRQIhAIgTE72ukSeakq6QBno1HIVaSWTn\nPNIWOsmmaSZb9I8IAiBLP33MDb8oDqYdI3Z6CutWn977QNg3UJGGH4MwbOlUfjAN\nBgkqhkiG9w0BAQsFAAOCAQEAZeOw7A4QSaQoE2LpJNSc70forYAO8Y9s4HRAQ48X\nkkdYP0XscCyIm4oODV3Uf90VugZa8n2llMskP93743Bgm3tlLgIfVkcaVJcYwmYv\ntFGzq9RzxAYsnMiD5tqqCj5hww+zs7MBFvaMFZ88DzECHAyT26SR0o624j0GMzQU\ndfVxp0gnlc9ogsHYz3haaSxljHH9m7jcfhs3NM5nc0Q0UQcz5\/rfKzMmdn73mc\/u\n8tI38SfM9gy9yFvTDhZZAcFPYOGm66awxpC+A953dfF4fjcP0HbvbIV5vM9uSJ7B\nfZ7DYwc8sOWA+DHhWEI1vQYPAEYuNBhHO2gRBdSOzOww5Q==\n-----END CERTIFICATE-----",
-                            "certificate_fullchain": "-----BEGIN CERTIFICATE-----\nMIIFXjCCBEagAwIBAgISBNZd\/OeWpmE3swsTjNqk5P7eMA0GCSqGSIb3DQEBCwUA\nMEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\nExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTAyMDcwODQ4MTVaFw0x\nOTA1MDgwODQ4MTVaMB4xHDAaBgNVBAMTE3d3dy50ZXN0LXRob21hcy54eXowggEi\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDck0jSp0n9jDPHBNPmd8owbIUP\n9b9mBN2g9+BW\/NTZ\/5dULcfbPReMo0YNIJe3EDpwU+RcP+faHUB\/EWDFW0iOngAE\nPz8zVZU+sTqq1fC51mrCKVhXnjxnYne+cRpDbUWxUH74RBY44CUEUyJG8QaMbn2p\nbIhQU1q6ig78vdzoQoSqat7qFFrn4JC8T8tT9oktRlrs7s9Uh3QYT2I8pZ5xbWHG\ngaAhb7Wul1Nh7XhUH84i0Vhco6tagcWCKh9k76NLyo9v1LQE9tagPcCzvYSDxfVD\nyRzvyl\/poUM5SG9JlYC\/3Mxj7MsJfvZvvfBFvVEaMQhxvco7f3b8GCWtYjkRAgMB\nAAGjggJoMIICZDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG\nCCsGAQUFBwMCMAwGA1UdEwEB\/wQCMAAwHQYDVR0OBBYEFPSpWw\/laMs\/uCpYvXFV\nk3VNgr2EMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe\/zqOyhMG8GCCsGAQUF\nBwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy\neXB0Lm9yZy8wHgYDVR0RBBcwFYITd3d3LnRlc3QtdGhvbWFzLnh5ejBMBgNVHSAE\nRTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpodHRw\nOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIEgfUEgfIA8AB2\nAHR+2oMxrTMQkSGcziVPQnDCv\/1eQiAIxjc1eeYQe8xWAAABaMdbmaEAAAQDAEcw\nRQIgMEIz18ayGC3RZJG1O339GEQM+iW\/9P6HyADnk63weoUCIQDIfRHinm5ueCpf\npDVetRR685\/KOaSSDRt+9qx\/to68ugB2ACk8UZZUyDlluqpQ\/FgH1Ldvv1h6KXLc\npMMM9OVFR\/R4AAABaMdbmYkAAAQDAEcwRQIhAIgTE72ukSeakq6QBno1HIVaSWTn\nPNIWOsmmaSZb9I8IAiBLP33MDb8oDqYdI3Z6CutWn977QNg3UJGGH4MwbOlUfjAN\nBgkqhkiG9w0BAQsFAAOCAQEAZeOw7A4QSaQoE2LpJNSc70forYAO8Y9s4HRAQ48X\nkkdYP0XscCyIm4oODV3Uf90VugZa8n2llMskP93743Bgm3tlLgIfVkcaVJcYwmYv\ntFGzq9RzxAYsnMiD5tqqCj5hww+zs7MBFvaMFZ88DzECHAyT26SR0o624j0GMzQU\ndfVxp0gnlc9ogsHYz3haaSxljHH9m7jcfhs3NM5nc0Q0UQcz5\/rfKzMmdn73mc\/u\n8tI38SfM9gy9yFvTDhZZAcFPYOGm66awxpC+A953dfF4fjcP0HbvbIV5vM9uSJ7B\nfZ7DYwc8sOWA+DHhWEI1vQYPAEYuNBhHO2gRBdSOzOww5Q==\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA\/\nMSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\nDkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\nSjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\nGkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\nq6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan\/PQeGdxyGkOlZHP\/uaZ6WA8\nSMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\nZ8h\/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\na6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB\/onkxEz0tNvjj\n\/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\nAQH\/BAgwBgEB\/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG\nCCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv\nbTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k\nc3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf\/EFWCFiRAw\nVAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC\nARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz\nMDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu\nY3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF\nAAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo\nuM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr\/1wXKtx8\/\nwApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so\/joWUoHOUgwu\nX4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG\nPfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6\nKOqkqm57TH2H3eDJAkSnh6\/DNFu0Qg==\n-----END CERTIFICATE-----\n",
-                            "fetched_at": "2019-02-07 09:48:22",
-                            "created_at": "2019-02-07 09:48:17",
-                            "updated_at": "2019-02-07 09:48:22"
-                        }
-                    ],
+                    "data": [],
                     "meta": {
                         "pagination": {
-                            "total": 2,
-                            "count": 2,
+                            "total": 0,
+                            "count": 0,
                             "per_page": 20,
                             "current_page": 1,
                             "total_pages": 1,
@@ -5951,30 +5629,11 @@
             },
             "ServerHasCertificateIndexExampleResponse": {
                 "value": {
-                    "data": [
-                        {
-                            "server_id": "1a1083f0-628d-11e8-adc0-fa7ae01bbebc",
-                            "domain": "www.mon-site-web.org",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "status": "NONE",
-                            "status_updated_at": null,
-                            "created_at": "2019-02-07 09:58:50",
-                            "updated_at": "2019-02-07 09:58:50"
-                        },
-                        {
-                            "server_id": "1a1083f0-628d-11e8-adc0-fa7ae01bbebc",
-                            "domain": "www.test-thomas.xyz",
-                            "project_id": "9fee04c4-3f11-11e8-b467-0ed5f89f718b",
-                            "status": "NONE",
-                            "status_updated_at": null,
-                            "created_at": "2019-02-07 09:58:50",
-                            "updated_at": "2019-02-07 09:58:50"
-                        }
-                    ],
+                    "data": [],
                     "meta": {
                         "pagination": {
-                            "total": 2,
-                            "count": 2,
+                            "total": 0,
+                            "count": 0,
                             "per_page": 20,
                             "current_page": 1,
                             "total_pages": 1,
