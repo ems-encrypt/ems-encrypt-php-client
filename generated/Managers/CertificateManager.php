@@ -121,6 +121,8 @@ class CertificateManager
 					$data['private_key_pem'], 
 					$data['expires_at'], 
 					$data['lets_encrypt'], 
+					(isset($data['lets_encrypt_challenge_type']) ? $data['lets_encrypt_challenge_type'] : null), 
+					$data['wildcard'], 
 					$data['created_at'], 
 					$data['updated_at']
 				); 
@@ -156,12 +158,14 @@ class CertificateManager
 	 * @param string $private_key_pem
 	 * @param string $expires_at Must be a valid date according to the strtotime PHP function.
 	 * @param boolean $lets_encrypt
+	 * @param string $lets_encrypt_challenge_type
+	 * @param boolean $wildcard
 	 * 
 	 * @return CertificateResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($domain, $project_id, $status = null, $cert_pem = null, $chain_pem = null, $fullchain_pem = null, $private_key_pem = null, $expires_at = null, $lets_encrypt = null)
+	public function create($domain, $project_id, $status = null, $cert_pem = null, $chain_pem = null, $fullchain_pem = null, $private_key_pem = null, $expires_at = null, $lets_encrypt = null, $lets_encrypt_challenge_type = null, $wildcard = null)
 	{
 		$routeUrl = '/api/certificate';
 
@@ -195,6 +199,14 @@ class CertificateManager
 
 		if (!is_null($lets_encrypt)) {
 			$bodyParameters['lets_encrypt'] = $lets_encrypt;
+		}
+
+		if (!is_null($lets_encrypt_challenge_type)) {
+			$bodyParameters['lets_encrypt_challenge_type'] = $lets_encrypt_challenge_type;
+		}
+
+		if (!is_null($wildcard)) {
+			$bodyParameters['wildcard'] = $wildcard;
 		}
 
 		$requestOptions = [];
@@ -231,6 +243,8 @@ class CertificateManager
 				$requestBody['data']['private_key_pem'], 
 				$requestBody['data']['expires_at'], 
 				$requestBody['data']['lets_encrypt'], 
+				(isset($requestBody['data']['lets_encrypt_challenge_type']) ? $requestBody['data']['lets_encrypt_challenge_type'] : null), 
+				$requestBody['data']['wildcard'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -295,6 +309,8 @@ class CertificateManager
 				$requestBody['data']['private_key_pem'], 
 				$requestBody['data']['expires_at'], 
 				$requestBody['data']['lets_encrypt'], 
+				(isset($requestBody['data']['lets_encrypt_challenge_type']) ? $requestBody['data']['lets_encrypt_challenge_type'] : null), 
+				$requestBody['data']['wildcard'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)

@@ -4,19 +4,19 @@ namespace EmsEncrypt\Api\Managers;
 
 use EmsEncrypt\Api\ApiClient;
 use EmsEncrypt\Api\Exceptions\UnexpectedResponseException;
-use EmsEncrypt\Api\Resources\TaskListResponse;
+use EmsEncrypt\Api\Resources\WebhookListResponse;
 use EmsEncrypt\Api\Resources\ErrorResponse;
-use EmsEncrypt\Api\Resources\TaskResponse;
-use EmsEncrypt\Api\Resources\Task;
+use EmsEncrypt\Api\Resources\WebhookResponse;
+use EmsEncrypt\Api\Resources\Webhook;
 use EmsEncrypt\Api\Resources\Meta;
 use EmsEncrypt\Api\Resources\Pagination;
 
 /**
- * Task manager class
+ * Webhook manager class
  * 
  * @package EmsEncrypt\Api\Managers
  */
-class TaskManager 
+class WebhookManager 
 {
 	/**
 	 * API client
@@ -26,7 +26,7 @@ class TaskManager
 	protected $apiClient;
 
 	/**
-	 * Task manager class constructor
+	 * Webhook manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -46,7 +46,7 @@ class TaskManager
 	}
 
 	/**
-	 * Show task list
+	 * Show webhook list
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
@@ -56,13 +56,13 @@ class TaskManager
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return TaskListResponse
+	 * @return WebhookListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function all($include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/task';
+		$routeUrl = '/api/webhook';
 
 		$queryParameters = [];
 
@@ -107,22 +107,18 @@ class TaskManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new TaskListResponse(
+		$response = new WebhookListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new Task(
+				return new Webhook(
 					$this->apiClient, 
 					$data['id'], 
 					$data['project_id'], 
-					$data['user_id'], 
-					$data['task_type_id'], 
-					$data['server_id'], 
-					$data['domain'], 
-					$data['order_id'], 
-					$data['status'], 
-					$data['output'], 
-					$data['started_at'], 
-					$data['finished_at'], 
+					$data['on_event'], 
+					$data['url'], 
+					$data['basic_auth_username'], 
+					$data['basic_auth_password'], 
+					$data['enabled'], 
 					$data['created_at'], 
 					$data['updated_at']
 				); 
@@ -145,33 +141,40 @@ class TaskManager
 	}
 	
 	/**
-	 * Create and store a new task
+	 * Create and store a new webhook
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
 	 * @param string $project_id Format: uuid.
-	 * @param string $task_type_id
-	 * @param string $server_id Format: uuid.
-	 * @param string $domain
+	 * @param string $on_event
+	 * @param boolean $enabled
+	 * @param string $url Format: url.
+	 * @param string $basic_auth_username
+	 * @param string $basic_auth_password
 	 * 
-	 * @return TaskResponse
+	 * @return WebhookResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($project_id, $task_type_id, $server_id = null, $domain = null)
+	public function create($project_id, $on_event, $enabled, $url = null, $basic_auth_username = null, $basic_auth_password = null)
 	{
-		$routeUrl = '/api/task';
+		$routeUrl = '/api/webhook';
 
 		$bodyParameters = [];
 		$bodyParameters['project_id'] = $project_id;
-		$bodyParameters['task_type_id'] = $task_type_id;
+		$bodyParameters['on_event'] = $on_event;
+		$bodyParameters['enabled'] = $enabled;
 
-		if (!is_null($server_id)) {
-			$bodyParameters['server_id'] = $server_id;
+		if (!is_null($url)) {
+			$bodyParameters['url'] = $url;
 		}
 
-		if (!is_null($domain)) {
-			$bodyParameters['domain'] = $domain;
+		if (!is_null($basic_auth_username)) {
+			$bodyParameters['basic_auth_username'] = $basic_auth_username;
+		}
+
+		if (!is_null($basic_auth_password)) {
+			$bodyParameters['basic_auth_password'] = $basic_auth_password;
 		}
 
 		$requestOptions = [];
@@ -195,21 +198,17 @@ class TaskManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new TaskResponse(
+		$response = new WebhookResponse(
 			$this->apiClient, 
-			new Task(
+			new Webhook(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['project_id'], 
-				$requestBody['data']['user_id'], 
-				$requestBody['data']['task_type_id'], 
-				$requestBody['data']['server_id'], 
-				$requestBody['data']['domain'], 
-				$requestBody['data']['order_id'], 
-				$requestBody['data']['status'], 
-				$requestBody['data']['output'], 
-				$requestBody['data']['started_at'], 
-				$requestBody['data']['finished_at'], 
+				$requestBody['data']['on_event'], 
+				$requestBody['data']['url'], 
+				$requestBody['data']['basic_auth_username'], 
+				$requestBody['data']['basic_auth_password'], 
+				$requestBody['data']['enabled'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -219,22 +218,22 @@ class TaskManager
 	}
 	
 	/**
-	 * Get specified task
+	 * Get specified webhook
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $taskId Task UUID
+	 * @param string $webhookId Webhook UUID
 	 * 
-	 * @return TaskResponse
+	 * @return WebhookResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function get($taskId)
+	public function get($webhookId)
 	{
-		$routePath = '/api/task/{taskId}';
+		$routePath = '/api/webhook/{webhookId}';
 
 		$pathReplacements = [
-			'{taskId}' => $taskId,
+			'{webhookId}' => $webhookId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -259,21 +258,17 @@ class TaskManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new TaskResponse(
+		$response = new WebhookResponse(
 			$this->apiClient, 
-			new Task(
+			new Webhook(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['project_id'], 
-				$requestBody['data']['user_id'], 
-				$requestBody['data']['task_type_id'], 
-				$requestBody['data']['server_id'], 
-				$requestBody['data']['domain'], 
-				$requestBody['data']['order_id'], 
-				$requestBody['data']['status'], 
-				$requestBody['data']['output'], 
-				$requestBody['data']['started_at'], 
-				$requestBody['data']['finished_at'], 
+				$requestBody['data']['on_event'], 
+				$requestBody['data']['url'], 
+				$requestBody['data']['basic_auth_username'], 
+				$requestBody['data']['basic_auth_password'], 
+				$requestBody['data']['enabled'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -283,22 +278,106 @@ class TaskManager
 	}
 	
 	/**
-	 * Delete specified task
+	 * Update a specified webhook
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $webhookId Webhook UUID
+	 * @param string $project_id Format: uuid.
+	 * @param string $on_event
+	 * @param boolean $enabled
+	 * @param string $url Format: url.
+	 * @param string $basic_auth_username
+	 * @param string $basic_auth_password
+	 * 
+	 * @return WebhookResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function update($webhookId, $project_id, $on_event, $enabled, $url = null, $basic_auth_username = null, $basic_auth_password = null)
+	{
+		$routePath = '/api/webhook/{webhookId}';
+
+		$pathReplacements = [
+			'{webhookId}' => $webhookId,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$bodyParameters = [];
+		$bodyParameters['project_id'] = $project_id;
+		$bodyParameters['on_event'] = $on_event;
+		$bodyParameters['enabled'] = $enabled;
+
+		if (!is_null($url)) {
+			$bodyParameters['url'] = $url;
+		}
+
+		if (!is_null($basic_auth_username)) {
+			$bodyParameters['basic_auth_username'] = $basic_auth_username;
+		}
+
+		if (!is_null($basic_auth_password)) {
+			$bodyParameters['basic_auth_password'] = $basic_auth_password;
+		}
+
+		$requestOptions = [];
+		$requestOptions['form_params'] = $bodyParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new WebhookResponse(
+			$this->apiClient, 
+			new Webhook(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['project_id'], 
+				$requestBody['data']['on_event'], 
+				$requestBody['data']['url'], 
+				$requestBody['data']['basic_auth_username'], 
+				$requestBody['data']['basic_auth_password'], 
+				$requestBody['data']['enabled'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
+		);
+
+		return $response;
+	}
+	
+	/**
+	 * Delete specified webhook
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $taskId Task UUID
+	 * @param string $webhookId Webhook UUID
 	 * 
 	 * @return ErrorResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($taskId)
+	public function delete($webhookId)
 	{
-		$routePath = '/api/task/{taskId}';
+		$routePath = '/api/webhook/{webhookId}';
 
 		$pathReplacements = [
-			'{taskId}' => $taskId,
+			'{webhookId}' => $webhookId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);

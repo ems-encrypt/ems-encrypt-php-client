@@ -156,12 +156,13 @@ class ServerManager
 	 * @param boolean $enabled
 	 * @param int $port
 	 * @param int $position
+	 * @param boolean $associate_all_certificates
 	 * 
 	 * @return ServerResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($project_id, $server_type_id, $name, $ip, $login, $enabled, $port = null, $position = null)
+	public function create($project_id, $server_type_id, $name, $ip, $login, $enabled, $port = null, $position = null, $associate_all_certificates = null)
 	{
 		$routeUrl = '/api/server';
 
@@ -179,6 +180,10 @@ class ServerManager
 
 		if (!is_null($position)) {
 			$bodyParameters['position'] = $position;
+		}
+
+		if (!is_null($associate_all_certificates)) {
+			$bodyParameters['associate_all_certificates'] = $associate_all_certificates;
 		}
 
 		$requestOptions = [];

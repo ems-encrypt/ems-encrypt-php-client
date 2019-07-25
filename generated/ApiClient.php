@@ -23,6 +23,8 @@ use EmsEncrypt\Api\Managers\TaskLogManager;
 use EmsEncrypt\Api\Managers\CertificateManager;
 use EmsEncrypt\Api\Managers\OrderManager;
 use EmsEncrypt\Api\Managers\ServerHasCertificateManager;
+use EmsEncrypt\Api\Managers\WebhookManager;
+use EmsEncrypt\Api\Managers\WebhookCallManager;
 
 /**
  * ems-encrypt client class (version 1.0)
@@ -172,6 +174,20 @@ class ApiClient
 	protected $serverHasCertificateManager;
 
 	/**
+	 * Webhook manager
+	 *
+	 * @var WebhookManager
+	 */
+	protected $webhookManager;
+
+	/**
+	 * WebhookCall manager
+	 *
+	 * @var WebhookCallManager
+	 */
+	protected $webhookCallManager;
+
+	/**
 	 * API Client class constructor
 	 *
 	 * @param string $bearerToken Bearer authentication access token
@@ -222,6 +238,8 @@ class ApiClient
 		$this->certificateManager = new CertificateManager($this);
 		$this->orderManager = new OrderManager($this);
 		$this->serverHasCertificateManager = new ServerHasCertificateManager($this);
+		$this->webhookManager = new WebhookManager($this);
+		$this->webhookCallManager = new WebhookCallManager($this);
 	}
 
 	/**
@@ -412,5 +430,25 @@ class ApiClient
 	public function ServerHasCertificateManager()
 	{
 		return $this->serverHasCertificateManager;
+	}
+	
+	/**
+	 * Return the Webhook manager
+	 *
+	 * @return WebhookManager
+	 */
+	public function WebhookManager()
+	{
+		return $this->webhookManager;
+	}
+	
+	/**
+	 * Return the WebhookCall manager
+	 *
+	 * @return WebhookCallManager
+	 */
+	public function WebhookCallManager()
+	{
+		return $this->webhookCallManager;
 	}
 }
