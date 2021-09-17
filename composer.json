@@ -30,7 +30,7 @@
     }
   },
   "require-dev": {
-    "rygilles/openapi-php-client-generator": "dev-develop",
+    "rygilles/openapi-php-client-generator": "dev-master",
     "phpunit/phpunit": "^9"
   },
   "require": {

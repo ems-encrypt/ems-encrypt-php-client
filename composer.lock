@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2249e2dd787f3ed9eda7d0675633631b",
+    "content-hash": "ff1483935cf9dab33df8fe8ed0077877",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1606,16 +1606,16 @@
         },
         {
             "name": "rygilles/openapi-php-client-generator",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rygilles/openapi-php-client-generator.git",
-                "reference": "ecf7fc162abb6c8398af833daccbc42b981e86af"
+                "reference": "3b4860fc49bc912ffaace4be798b10e2e2aebdfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rygilles/openapi-php-client-generator/zipball/ecf7fc162abb6c8398af833daccbc42b981e86af",
-                "reference": "ecf7fc162abb6c8398af833daccbc42b981e86af",
+                "url": "https://api.github.com/repos/rygilles/openapi-php-client-generator/zipball/3b4860fc49bc912ffaace4be798b10e2e2aebdfe",
+                "reference": "3b4860fc49bc912ffaace4be798b10e2e2aebdfe",
                 "shasum": ""
             },
             "require": {
@@ -1629,6 +1629,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^9"
             },
+            "default-branch": true,
             "bin": [
                 "openapi-php-client-generator"
             ],
@@ -1658,9 +1659,9 @@
             ],
             "support": {
                 "issues": "https://github.com/rygilles/openapi-php-client-generator/issues",
-                "source": "https://github.com/rygilles/openapi-php-client-generator/tree/develop"
+                "source": "https://github.com/rygilles/openapi-php-client-generator/tree/master"
             },
-            "time": "2021-09-17T09:15:12+00:00"
+            "time": "2021-09-17T09:38:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",
