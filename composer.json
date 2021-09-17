@@ -30,10 +30,10 @@
     }
   },
   "require-dev": {
-    "rygilles/openapi-php-client-generator": "^v0.1",
-    "phpunit/phpunit": "^7.3"
+    "rygilles/openapi-php-client-generator": "^v0.2",
+    "phpunit/phpunit": "^9"
   },
   "require": {
-    "guzzlehttp/guzzle": "^6.3"
+    "guzzlehttp/guzzle": "^7"
   }
 }
