@@ -1,2 +1,2 @@
 generate:
-	./vendor/bin/openapi-php-client-generator generate openapi.json temp "EmsEncrypt\Api"
+	./vendor/bin/openapi-php-client-generator generate openapi.json generated "EmsEncrypt\Api"
