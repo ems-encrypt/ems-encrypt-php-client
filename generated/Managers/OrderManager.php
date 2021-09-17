@@ -96,7 +96,7 @@ class OrderManager
 
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
-				$requestBody['message'], 
+				(isset($requestBody['message']) ? $requestBody['message'] : null), 
 				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
 				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
@@ -183,7 +183,7 @@ class OrderManager
 
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
-				$requestBody['message'], 
+				(isset($requestBody['message']) ? $requestBody['message'] : null), 
 				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
 				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)

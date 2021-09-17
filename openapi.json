@@ -4525,9 +4525,6 @@
     "components": {
         "schemas": {
             "ErrorResponse": {
-                "required": [
-                    "message"
-                ],
                 "properties": {
                     "message": {
                         "type": "string",
