@@ -1610,12 +1610,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rygilles/openapi-php-client-generator.git",
-                "reference": "fe1fed36bf9d738d6335437dd8c5a2237903d3a7"
+                "reference": "ecf7fc162abb6c8398af833daccbc42b981e86af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rygilles/openapi-php-client-generator/zipball/fe1fed36bf9d738d6335437dd8c5a2237903d3a7",
-                "reference": "fe1fed36bf9d738d6335437dd8c5a2237903d3a7",
+                "url": "https://api.github.com/repos/rygilles/openapi-php-client-generator/zipball/ecf7fc162abb6c8398af833daccbc42b981e86af",
+                "reference": "ecf7fc162abb6c8398af833daccbc42b981e86af",
                 "shasum": ""
             },
             "require": {
@@ -1660,7 +1660,7 @@
                 "issues": "https://github.com/rygilles/openapi-php-client-generator/issues",
                 "source": "https://github.com/rygilles/openapi-php-client-generator/tree/develop"
             },
-            "time": "2021-09-17T08:09:51+00:00"
+            "time": "2021-09-17T09:15:12+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -3638,12 +3638,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "464842c41f63254eaf06a26489b773b956127f9d"
+                "reference": "96d8b0ecd4802470e77494c4d71569810f686320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/464842c41f63254eaf06a26489b773b956127f9d",
-                "reference": "464842c41f63254eaf06a26489b773b956127f9d",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/96d8b0ecd4802470e77494c4d71569810f686320",
+                "reference": "96d8b0ecd4802470e77494c4d71569810f686320",
                 "shasum": ""
             },
             "require": {
@@ -3707,7 +3707,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-11T07:52:24+00:00"
+            "time": "2021-09-17T08:45:16+00:00"
         },
         {
             "name": "webmozart/assert",
